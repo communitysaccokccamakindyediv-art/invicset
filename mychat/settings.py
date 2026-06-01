@@ -42,6 +42,9 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://invicset.onrender.com"
+]
 
 # Application definition
 
