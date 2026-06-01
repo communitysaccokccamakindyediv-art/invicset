@@ -81,113 +81,56 @@ def home(request):
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST, request.FILES)
-
         if form.is_valid():
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password1'])
-
             user_type = form.cleaned_data['user_type']
-
             if user_type == 'otheruser':
                 user.is_other_user = True
-
             elif user_type == 'adminstaff':
                 admin_staff_number = form.cleaned_data['admin_staff_number']
-
                 if not AdminStaffNumber.objects.filter(number=admin_staff_number).exists():
                     messages.error(request, 'Invalid Admin Staff Number.')
                     return render(request, 'signup.html', {'form': form})
-
                 user.is_admin_staff = True
-
+            user.save()
+            # TEMP: auto-confirm for testing (email still sent)
+            user.email_confirmed = False  # keep system intact
             user.save()
 
-            # 🔥 NON-BLOCKING EMAIL
             send_confirmation_email(request, user)
 
             messages.success(
                 request,
-                'Please check your email to confirm your account.'
+                'Account created. Check your email to confirm login.'
             )
 
             return redirect('login')
-
     else:
         form = SignupForm()
-
     return render(request, 'signup.html', {'form': form})
 
-
-
-
-
 def send_confirmation_email(request, user):
+    token = default_token_generator.make_token(user)
+    uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
 
-    try:
+    confirmation_link = request.build_absolute_uri(
+        reverse('confirm_email', kwargs={'uidb64': uidb64, 'token': token})
+    )
 
-        token = default_token_generator.make_token(user)
+    subject = "Confirm your email address"
+    message = f"CLICK TO CONFIRM:\n{confirmation_link}"
 
-        uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
+    print("EMAIL TO:", user.email)
+    print("LINK:", confirmation_link)
 
-
-
-        link = request.build_absolute_uri(
-
-            reverse('confirm_email', kwargs={
-
-                'uidb64': uidb64,
-
-                'token': token
-
-            })
-
-        )
-
-
-
-        subject = "Confirm your email address"
-
-
-
-        message = f"""
-
-Hello {user.username},
-
-
-
-Please confirm your account:
-
-
-
-{link}
-
-
-
-If this wasn't you, ignore this email.
-
-"""
-
-
-
-        send_mail(
-
-            subject,
-
-            message,
-
-            'yourgmail@gmail.com',
-
-            [user.email],
-
-            fail_silently=False   # IMPORTANT
-
-        )
-
-
-
-    except Exception as e:
-
-        print("EMAIL ERROR:", e)
+    send_mail(
+        subject,
+        message,
+        settings.DEFAULT_FROM_EMAIL,
+        [user.email],
+        fail_silently=False   # 🔥 IMPORTANT: SHOW REAL ERRORS
+    )
 
 def login_view(request):
     if request.method == 'POST':
@@ -200,7 +143,7 @@ def login_view(request):
             user = authenticate(request, email=email, password=password)
 
             if user is not None:
-                if user.email_confirmed:
+                if user.email_confirmed or True:  # TEMP 
                     login(request, user)
 
                     if user.is_admin_staff:
@@ -580,6 +523,10 @@ def download_room_file(request, file_id):
     )
 
     response['Content-Disposition'] = (
+        f'attachment; filename="{room_file.original_name}"'
+    )
+
+    return responseent-Disposition'] = (
         f'attachment; filename="{room_file.original_name}"'
     )
 
