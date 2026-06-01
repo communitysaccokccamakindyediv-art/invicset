@@ -1,0 +1,1 @@
+web: daphne mychat.asgi:application
