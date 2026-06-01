@@ -117,44 +117,77 @@ def signup(request):
 
     return render(request, 'signup.html', {'form': form})
 
+
+
+
+
 def send_confirmation_email(request, user):
-    import threading
 
-    def task():
-        try:
-            token = default_token_generator.make_token(user)
-            uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
+    try:
 
-            confirmation_link = request.build_absolute_uri(
-                reverse('confirm_email', kwargs={
-                    'uidb64': uidb64,
-                    'token': token
-                })
-            )
+        token = default_token_generator.make_token(user)
 
-            subject = "Confirm your email address"
-            message = f"""
+        uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
+
+
+
+        link = request.build_absolute_uri(
+
+            reverse('confirm_email', kwargs={
+
+                'uidb64': uidb64,
+
+                'token': token
+
+            })
+
+        )
+
+
+
+        subject = "Confirm your email address"
+
+
+
+        message = f"""
+
 Hello {user.username},
 
-Please confirm your account by clicking the link below:
 
-{confirmation_link}
 
-If you did not request this, ignore this email.
+Please confirm your account:
+
+
+
+{link}
+
+
+
+If this wasn't you, ignore this email.
+
 """
 
-            send_mail(
-                subject,
-                message,
-                'enote7y@gmail.com',
-                [user.email],
-                fail_silently=True
-            )
 
-        except Exception as e:
-            print("Email error:", e)
 
-    threading.Thread(target=task, daemon=True).start()
+        send_mail(
+
+            subject,
+
+            message,
+
+            'yourgmail@gmail.com',
+
+            [user.email],
+
+            fail_silently=False   # IMPORTANT
+
+        )
+
+
+
+    except Exception as e:
+
+        print("EMAIL ERROR:", e)
 
 def login_view(request):
     if request.method == 'POST':
