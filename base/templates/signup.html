@@ -1,0 +1,1209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>INVIC | Secure Communication Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --bg1: #020617;
+        --bg2: #0f172a;
+
+        --primary: #38bdf8;
+        --primary2: #2563eb;
+
+        --text: #f8fafc;
+        --muted: rgba(255, 255, 255, 0.62);
+
+        --glass: rgba(255, 255, 255, 0.04);
+        --border: rgba(255, 255, 255, 0.06);
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        min-height: 100vh;
+        overflow-x: hidden;
+        color: white;
+
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(37, 99, 235, 0.18),
+            transparent 30%
+          ),
+          radial-gradient(
+            circle at bottom right,
+            rgba(56, 189, 248, 0.12),
+            transparent 30%
+          ),
+          linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 100%);
+
+        position: relative;
+      }
+
+      /* subtle glow */
+
+      .orb {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(120px);
+        opacity: 0.12;
+        z-index: 0;
+      }
+
+      .orb1 {
+        width: 280px;
+        height: 280px;
+        background: #2563eb;
+        top: -100px;
+        left: -100px;
+      }
+
+      .orb2 {
+        width: 350px;
+        height: 350px;
+        background: #06b6d4;
+        right: -120px;
+        bottom: -120px;
+      }
+
+      /* page */
+
+      .page {
+        position: relative;
+        z-index: 2;
+
+        min-height: 100vh;
+
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr 1fr;
+
+        gap: 40px;
+
+        align-items: center;
+
+        padding: 50px 60px;
+      }
+
+      /* LEFT */
+
+      .left {
+        max-width: 620px;
+      }
+
+      .tag {
+        width: fit-content;
+
+        padding: 10px 18px;
+
+        border-radius: 999px;
+
+        background: rgba(255, 255, 255, 0.04);
+
+        border: 1px solid var(--border);
+
+        font-size: 0.84rem;
+
+        color: rgba(255, 255, 255, 0.82);
+
+        margin-bottom: 28px;
+      }
+
+      .brand {
+        font-size: clamp(3.5rem, 6vw, 6rem);
+
+        font-weight: 900;
+
+        line-height: 0.92;
+
+        letter-spacing: -4px;
+
+        margin-bottom: 28px;
+      }
+
+      .brand span {
+        background: linear-gradient(90deg, #38bdf8, #60a5fa);
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .desc {
+        color: rgba(0, 255, 255, 0.72);
+
+        font-size: 1.05rem;
+
+        line-height: 1.9;
+
+        margin-bottom: 38px;
+
+        max-width: 540px;
+      }
+
+      /* moving text */
+
+      .ticker-wrap {
+        overflow: hidden;
+
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+        padding: 16px 0;
+      }
+
+      .ticker {
+        display: flex;
+        gap: 60px;
+
+        width: max-content;
+
+        animation: ticker 22s linear infinite;
+      }
+
+      .ticker span {
+        color: rgba(255, 255, 255, 0.72);
+
+        white-space: nowrap;
+      }
+
+      @keyframes ticker {
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* CENTER */
+
+      .center {
+        position: relative;
+      }
+
+      .form-shell {
+        padding: 40px 10px;
+      }
+
+      .welcome {
+        margin-bottom: 35px;
+      }
+
+      .welcome h1 {
+        font-size: 2.1rem;
+
+        font-weight: 700;
+
+        margin-bottom: 12px;
+      }
+
+      .welcome p {
+        color: var(--muted);
+
+        line-height: 1.8;
+      }
+
+      /* steps */
+
+      .steps {
+        display: flex;
+        gap: 10px;
+
+        margin-bottom: 35px;
+      }
+
+      .step {
+        flex: 1;
+
+        height: 5px;
+
+        border-radius: 999px;
+
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .step.active {
+        background: linear-gradient(90deg, #2563eb, #38bdf8);
+      }
+
+      /* form */
+
+      .step-section {
+        display: none;
+      }
+
+      .step-section.active {
+        display: block;
+
+        animation: fade 0.35s ease;
+      }
+
+      @keyframes fade {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .step-title {
+        margin-bottom: 22px;
+
+        font-size: 1.05rem;
+
+        font-weight: 600;
+      }
+
+      .field {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+
+        margin-bottom: 10px;
+
+        color: rgba(255, 255, 255, 0.74);
+
+        font-size: 0.93rem;
+      }
+
+      input,
+      select {
+        width: 100%;
+
+        background: transparent;
+
+        border: none;
+
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+
+        padding: 15px 0;
+
+        color: white;
+
+        font-size: 1rem;
+
+        outline: none;
+
+        transition: 0.3s;
+      }
+
+      input:focus,
+      select:focus {
+        border-color: #38bdf8;
+      }
+
+      input::placeholder {
+        color: rgba(255, 255, 255, 0.3);
+      }
+
+      /* buttons */
+
+      .btns {
+        display: flex;
+        gap: 14px;
+
+        margin-top: 35px;
+      }
+
+      .btn {
+        flex: 1;
+
+        padding: 15px;
+
+        border: none;
+
+        border-radius: 14px;
+
+        cursor: pointer;
+
+        font-weight: 600;
+
+        transition: 0.3s;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .primary {
+        background: linear-gradient(90deg, #2563eb, #38bdf8);
+
+        color: white;
+      }
+
+      .secondary {
+        background: rgba(255, 255, 255, 0.04);
+
+        color: white;
+
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .login {
+        margin-top: 28px;
+
+        color: rgba(255, 255, 255, 0.55);
+
+        text-align: center;
+      }
+
+      .login a {
+        color: #38bdf8;
+
+        text-decoration: none;
+      }
+
+      /* RIGHT SIDE */
+
+      .right {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+      }
+
+      .dashboard-card {
+        background: rgba(255, 255, 255, 0.04);
+
+        border: 1px solid rgba(255, 255, 255, 0.05);
+
+        border-radius: 28px;
+
+        padding: 24px;
+
+        backdrop-filter: blur(18px);
+      }
+
+      .meeting-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        margin-bottom: 25px;
+      }
+
+      .live {
+        padding: 8px 14px;
+
+        border-radius: 999px;
+
+        background: rgba(239, 68, 68, 0.12);
+
+        color: #fca5a5;
+
+        font-size: 0.82rem;
+      }
+
+      .meeting-box {
+        height: 170px;
+
+        border-radius: 22px;
+
+        background: linear-gradient(
+          135deg,
+          rgba(37, 99, 235, 0.35),
+          rgba(15, 23, 42, 0.9)
+        );
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 3rem;
+
+        margin-bottom: 20px;
+      }
+
+      .meeting-title {
+        font-size: 1.15rem;
+
+        margin-bottom: 10px;
+      }
+
+      .meeting-desc {
+        color: var(--muted);
+
+        line-height: 1.7;
+
+        font-size: 0.95rem;
+      }
+
+      /* chat */
+
+      .chat-card {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .msg {
+        padding: 14px 16px;
+
+        border-radius: 18px;
+
+        background: rgba(255, 255, 255, 0.04);
+
+        border: 1px solid rgba(255, 255, 255, 0.04);
+
+        color: rgba(255, 255, 255, 0.85);
+
+        font-size: 0.93rem;
+      }
+
+      .msg.right-msg {
+        background: rgba(37, 99, 235, 0.16);
+
+        margin-left: 45px;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      /* =========================
+   RESPONSIVE FIXES
+========================= */
+
+      html,
+      body {
+        width: 100%;
+        overflow-x: hidden;
+      }
+
+      /* make everything shrink properly */
+      .left,
+      .center,
+      .right,
+      .form-shell,
+      .dashboard-card,
+      .field,
+      .btns,
+      .btn,
+      input,
+      select {
+        min-width: 0;
+      }
+
+      /* GRID RESPONSIVE */
+
+      @media (max-width: 1150px) {
+        .page {
+          grid-template-columns: 1fr;
+          gap: 32px;
+          padding: 28px 20px;
+          align-items: start;
+        }
+
+        .left,
+        .center,
+        .right {
+          width: 100%;
+          max-width: 100%;
+        }
+
+        .left {
+          text-align: center;
+        }
+
+        .tag,
+        .desc {
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .right {
+          order: 3;
+        }
+
+        .ticker {
+          animation-duration: 16s;
+        }
+      }
+
+      /* MOBILE */
+
+      @media (max-width: 700px) {
+        body {
+          overflow-y: auto;
+        }
+
+        .page {
+          min-height: auto;
+          padding: 18px 14px;
+          gap: 24px;
+        }
+
+        /* LEFT SIDE */
+
+        .brand {
+          font-size: 2.2rem;
+          line-height: 1.05;
+          letter-spacing: -2px;
+          word-break: break-word;
+        }
+
+        .tag {
+          width: 100%;
+          text-align: center;
+          font-size: 0.72rem;
+          padding: 8px 12px;
+        }
+
+        .desc {
+          font-size: 0.92rem;
+          line-height: 1.6;
+          margin-bottom: 20px;
+        }
+
+        /* ticker */
+
+        .ticker-wrap {
+          width: 100%;
+          overflow: hidden;
+          padding: 12px 0;
+        }
+
+        .ticker {
+          gap: 22px;
+        }
+
+        .ticker span {
+          font-size: 0.82rem;
+          white-space: nowrap;
+        }
+
+        /* FORM */
+
+        .form-shell {
+          width: 100%;
+          padding: 0;
+        }
+
+        .welcome h1 {
+          font-size: 1.7rem !important;
+          line-height: 1.1;
+          word-break: break-word;
+        }
+
+        .welcome p {
+          font-size: 0.92rem;
+          line-height: 1.6;
+        }
+
+        .step-title {
+          font-size: 1rem;
+        }
+
+        .field {
+          margin-bottom: 18px;
+        }
+
+        label {
+          font-size: 0.9rem;
+        }
+
+        input,
+        select {
+          width: 100%;
+          font-size: 16px;
+          padding: 13px 0;
+        }
+
+        /* BUTTONS */
+
+        .btns {
+          flex-direction: column;
+          gap: 12px;
+          width: 100%;
+        }
+
+        .btn {
+          width: 100%;
+          padding: 14px;
+        }
+
+        /* RIGHT SIDE */
+
+        .right {
+          width: 100%;
+        }
+
+        .dashboard-card {
+          width: 100%;
+          padding: 18px;
+          border-radius: 20px;
+        }
+
+        .meeting-top {
+          gap: 10px;
+          flex-wrap: wrap;
+        }
+
+        .meeting-box {
+          height: 120px;
+          font-size: 2rem;
+        }
+
+        .meeting-title {
+          font-size: 1rem;
+        }
+
+        .meeting-desc {
+          font-size: 0.88rem;
+          line-height: 1.6;
+        }
+
+        .chat-card {
+          gap: 10px;
+        }
+
+        .msg {
+          font-size: 0.85rem;
+          padding: 12px 14px;
+          word-wrap: break-word;
+        }
+
+        .msg.right-msg {
+          margin-left: 0;
+        }
+
+        /* prevent ANYTHING from forcing width */
+
+        * {
+          max-width: 100%;
+        }
+      }
+
+      /* VERY SMALL PHONES */
+
+      @media (max-width: 480px) {
+        .page {
+          padding: 14px 12px;
+        }
+
+        .brand {
+          font-size: 1.9rem;
+        }
+
+        .welcome h1 {
+          font-size: 1.45rem !important;
+        }
+
+        .meeting-box {
+          height: 100px;
+        }
+
+        .dashboard-card {
+          padding: 14px;
+        }
+
+        .ticker span {
+          font-size: 0.76rem;
+        }
+      }
+      .desc span {
+        display: inline-block;
+        transition: opacity 0.4s ease;
+      }
+      /* =========================
+   RESPONSIVE FIXES
+========================= */
+
+      html,
+      body {
+        overflow-x: hidden;
+      }
+
+      /* tablets */
+
+      @media (max-width: 1150px) {
+        .page {
+          grid-template-columns: 1fr;
+
+          gap: 35px;
+
+          padding: 28px 20px;
+        }
+
+        .left,
+        .center,
+        .right {
+          width: 100%;
+          max-width: 100%;
+        }
+
+        .left {
+          text-align: center;
+        }
+
+        .tag {
+          margin-inline: auto;
+        }
+
+        .desc {
+          margin-inline: auto;
+        }
+
+        .right {
+          order: 3;
+        }
+
+        .ticker {
+          animation-duration: 16s;
+        }
+      }
+
+      /* phones */
+
+      @media (max-width: 700px) {
+        body {
+          overflow-y: auto;
+        }
+
+        .page {
+          min-height: auto;
+
+          padding: 22px 16px;
+
+          gap: 28px;
+        }
+
+        .brand {
+          font-size: 2.5rem;
+
+          line-height: 1.05;
+
+          letter-spacing: -2px;
+        }
+
+        .welcome h1 {
+          font-size: 1.7rem !important;
+        }
+
+        .desc {
+          font-size: 0.95rem;
+
+          line-height: 1.7;
+
+          margin-bottom: 24px;
+        }
+
+        .ticker-wrap {
+          padding: 12px 0;
+        }
+
+        .ticker {
+          gap: 28px;
+        }
+
+        .ticker span {
+          font-size: 0.9rem;
+        }
+
+        .form-shell {
+          padding: 10px 0;
+        }
+
+        .dashboard-card {
+          padding: 18px;
+
+          border-radius: 22px;
+        }
+
+        .meeting-box {
+          height: 130px;
+
+          font-size: 2rem;
+        }
+
+        .meeting-title {
+          font-size: 1rem;
+        }
+
+        .meeting-desc {
+          font-size: 0.9rem;
+        }
+
+        .btns {
+          flex-direction: column;
+        }
+
+        .btn {
+          width: 100%;
+        }
+
+        input,
+        select {
+          font-size: 16px;
+        }
+
+        .msg.right-msg {
+          margin-left: 0;
+        }
+      }
+
+      /* very small devices */
+
+      @media (max-width: 480px) {
+        .page {
+          padding: 18px 14px;
+        }
+
+        .brand {
+          font-size: 2rem;
+        }
+
+        .tag {
+          font-size: 0.72rem;
+
+          padding: 8px 14px;
+        }
+
+        .welcome h1 {
+          font-size: 1.45rem !important;
+        }
+
+        .step-title {
+          font-size: 0.95rem;
+        }
+
+        .meeting-box {
+          height: 110px;
+        }
+
+        .dashboard-card {
+          padding: 15px;
+        }
+
+        .msg {
+          font-size: 0.86rem;
+        }
+
+        .ticker span {
+          font-size: 0.82rem;
+        }
+      }
+      .preview-img {
+        width: 110px;
+        height: 110px;
+        border-radius: 18px;
+        object-fit: cover;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        display: none;
+      }
+      /* FIX SELECT DROPDOWN TEXT VISIBILITY */
+      select {
+        color: #ffffff !important;
+        background-color: rgba(15, 23, 42, 0.9) !important;
+      }
+
+      /* option dropdown items */
+      select option {
+        color: #0f172a;
+        background: #ffffff;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+
+    <div class="page">
+      <!-- LEFT -->
+
+      <div class="left">
+        <div class="tag">INVIC • Secure Communication Infrastructure</div>
+
+        <div class="brand">
+          Private <span>rooms</span><br />
+          live within.
+        </div>
+
+        <div class="desc">
+          <span id="changing-text">
+            Secure messaging for modern organizations.
+          </span>
+        </div>
+
+        <div class="login">
+          HOMEPAGE ....
+          <a href="javascript:history.back()">BACK</a>
+        </div>
+
+        <div class="ticker-wrap">
+          <div class="ticker">
+            <span>💬 Team Messaging</span>
+            <span>🎥 Video Conferences</span>
+            <span>🔒 Secure Access</span>
+            <span>🌐 Enterprise Communication</span>
+            <span>🚀 Smart Collaboration</span>
+
+            <span>💬 Team Messaging</span>
+            <span>🎥 Video Conferences</span>
+            <span>🔒 Secure Access</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTER -->
+
+      <div class="center">
+        <div class="form-shell">
+          <div class="welcome">
+            <h1
+              style="
+                font-size: clamp(2rem, 4vw, 2.8rem);
+                font-weight: 800;
+                line-height: 1;
+                letter-spacing: -2px;
+                margin-bottom: 14px;
+                background: linear-gradient(90deg, #1100ff, #93c5fd);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+              "
+            >
+              Create Account
+            </h1>
+
+            <p>
+              Access INVIC communication systems and collaborate securely across
+              teams and organizations.
+            </p>
+          </div>
+
+          <div class="steps">
+            <div class="step active" id="s1"></div>
+            <div class="step" id="s2"></div>
+            <div class="step" id="s3"></div>
+          </div>
+
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- STEP 1 -->
+
+            <div class="step-section active" id="step1">
+              <div class="step-title">Identity Setup</div>
+
+              <div class="field">
+                <label>Email Address</label>
+                {{ form.email }}
+              </div>
+
+              <div class="field">
+                <label>Username</label>
+                {{ form.username }}
+              </div>
+
+              <div class="field">
+                <label>Password</label>
+                {{ form.password1 }}
+              </div>
+
+              <div class="field">
+                <label>Confirm Password</label>
+                {{ form.password2 }}
+              </div>
+
+              <div class="btns">
+                <button type="button" class="btn primary" onclick="next(2)">
+                  Continue
+                </button>
+              </div>
+            </div>
+
+            <!-- STEP 2 -->
+
+            <div class="step-section" id="step2">
+              <div class="step-title">Profile & Role</div>
+
+              <div class="field">
+                <label>Profile Picture</label>
+                {{ form.profile_picture }}
+                <div class="field">
+                  <label>Preview</label>
+                  <img id="profilePreview" class="preview-img" />
+                </div>
+              </div>
+
+              <div class="field">
+                <label>User Type</label>
+                {{ form.user_type }}
+              </div>
+
+              <div class="field hidden" id="adminBox">
+                <label>Admin Staff Number</label>
+                {{ form.admin_staff_number }}
+              </div>
+
+              <div class="btns">
+                <button type="button" class="btn secondary" onclick="back(1)">
+                  Back
+                </button>
+
+                <button type="button" class="btn primary" onclick="next(3)">
+                  Continue
+                </button>
+              </div>
+            </div>
+
+            <!-- STEP 3 -->
+
+            <div class="step-section" id="step3">
+              <div class="step-title">Confirmation</div>
+
+              <p style="color: rgba(255, 255, 255, 0.65); line-height: 1.8">
+                Your account will be securely connected to the INVIC enterprise
+                communication infrastructure.
+              </p>
+
+              <div class="btns">
+                <button type="button" class="btn secondary" onclick="back(2)">
+                  Back
+                </button>
+
+                <button type="submit" class="btn primary">
+                  Create Account
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <div class="login">
+            Already have an account?
+            <a href="{% url 'login' %}">Login</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+
+      <div class="right">
+        <!-- MEETING -->
+
+        <div class="dashboard-card">
+          <div class="meeting-top">
+            <div>Weekly Strategy Meeting</div>
+
+            <div class="live">● LIVE</div>
+          </div>
+
+          <div class="meeting-box">🎥</div>
+
+          <div class="meeting-title">24 Participants Connected</div>
+
+          <div class="meeting-desc">
+            High quality conferencing and secure collaboration infrastructure
+            for modern organizations.
+          </div>
+        </div>
+
+        <!-- CHAT -->
+
+        <div class="dashboard-card chat-card">
+          <div class="msg">👋 Welcome to INVIC communication platform.</div>
+
+          <div class="msg right-msg">Secure chat and conferencing enabled.</div>
+
+          <div class="msg">🔒 Identity verification successful.</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function show(step) {
+        document.querySelectorAll(".step-section").forEach((el) => {
+          el.classList.remove("active");
+        });
+
+        document.querySelectorAll(".step").forEach((el) => {
+          el.classList.remove("active");
+        });
+
+        document.getElementById("step" + step).classList.add("active");
+
+        document.getElementById("s" + step).classList.add("active");
+      }
+
+      function next(step) {
+        show(step);
+      }
+
+      function back(step) {
+        show(step);
+      }
+
+      const userType = document.querySelector("#id_user_type");
+
+      const adminBox = document.getElementById("adminBox");
+
+      if (userType) {
+        userType.addEventListener("change", () => {
+          if (userType.value === "adminstaff") {
+            adminBox.classList.remove("hidden");
+          } else {
+            adminBox.classList.add("hidden");
+          }
+        });
+      }
+
+      const texts = [
+        "Secure messaging for modern organizations.",
+        "Intelligent video conferencing infrastructure.",
+        "Digital collaboration for connected teams.",
+        "Enterprise-grade secure communication.",
+      ];
+
+      let index = 0;
+
+      const textElement = document.getElementById("changing-text");
+
+      setInterval(() => {
+        textElement.style.opacity = 0;
+
+        setTimeout(() => {
+          index = (index + 1) % texts.length;
+
+          textElement.textContent = texts[index];
+
+          textElement.style.opacity = 1;
+        }, 400);
+      }, 3000);
+      const fileInput = document.querySelector("#id_profile_picture");
+      const preview = document.getElementById("profilePreview");
+
+      if (fileInput) {
+        fileInput.addEventListener("change", function () {
+          const file = this.files[0];
+
+          if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+              preview.src = e.target.result;
+              preview.style.display = "block";
+            };
+
+            reader.readAsDataURL(file);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

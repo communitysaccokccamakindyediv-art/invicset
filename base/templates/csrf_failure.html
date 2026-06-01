@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Security Verification Failed</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Arial, sans-serif;
+      }
+
+      body {
+        background: #f4f7fa;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 700px;
+        width: 100%;
+      }
+
+      .card {
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+      }
+
+      .header {
+        background: #003366;
+        color: #fff;
+        padding: 25px;
+        text-align: center;
+      }
+
+      .header h1 {
+        font-size: 28px;
+        margin-bottom: 8px;
+      }
+
+      .header p {
+        opacity: 0.9;
+        font-size: 15px;
+      }
+
+      .content {
+        padding: 35px;
+      }
+
+      .icon {
+        text-align: center;
+        font-size: 60px;
+        color: #d32f2f;
+        margin-bottom: 20px;
+      }
+
+      .content h2 {
+        color: #003366;
+        margin-bottom: 15px;
+        text-align: center;
+      }
+
+      .content p {
+        color: #444;
+        line-height: 1.7;
+        margin-bottom: 15px;
+      }
+
+      .info-box {
+        background: #f8f9fc;
+        border-left: 5px solid #003366;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 4px;
+      }
+
+      .actions {
+        margin-top: 25px;
+        text-align: center;
+      }
+
+      .btn {
+        display: inline-block;
+        text-decoration: none;
+        padding: 12px 24px;
+        margin: 5px;
+        border-radius: 6px;
+        font-weight: 600;
+        transition: 0.3s;
+      }
+
+      .btn-primary {
+        background: #003366;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: #00264d;
+      }
+
+      .btn-secondary {
+        background: #e5e7eb;
+        color: #333;
+      }
+
+      .btn-secondary:hover {
+        background: #d1d5db;
+      }
+
+      .footer {
+        text-align: center;
+        padding: 20px;
+        font-size: 13px;
+        color: #666;
+        border-top: 1px solid #eee;
+      }
+
+      @media (max-width: 600px) {
+        .content {
+          padding: 25px;
+        }
+
+        .header h1 {
+          font-size: 22px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="header">
+          <h1>Intranet Video & Chat System service Portal</h1>
+          <p
+            style="
+              display: inline-block;
+              padding: 4px 10px;
+              border: 1px solid #000;
+              font-weight: bold;
+              font-size: 14px;
+              margin: 0;
+            "
+          >
+            (INVIC)
+          </p>
+        </div>
+
+        <div class="content">
+          <div class="icon">🔒</div>
+
+          <h2>Security Verification Failed</h2>
+
+          <p>
+            Your request could not be processed because the security
+            verification token was missing, expired, or invalid.
+          </p>
+
+          <div class="info-box">
+            <strong>What happened?</strong><br />
+            This security check helps protect your information and prevents
+            unauthorized requests from being submitted to the system.
+          </div>
+
+          <p><strong>You may try the following:</strong></p>
+
+          <ul style="margin-left: 20px; color: #444; line-height: 1.8">
+            <li>Refresh the page and try again.</li>
+            <li>Sign in again if your session has expired.</li>
+            <li>Ensure cookies are enabled in your browser.</li>
+            <li>Return to the previous page and resubmit your request.</li>
+            <li>Contact technical support if the problem persists.</li>
+          </ul>
+
+          <div class="actions">
+            <a href="/" class="btn btn-primary">Return to Home</a>
+            <a href="javascript:history.back()" class="btn btn-secondary">
+              Go Back
+            </a>
+          </div>
+        </div>
+
+        <div class="footer">
+          © 2026 INVIC SYSTEM. All Rights Reserved.
+          <br />
+          For assistance, contact the ICT Service Desk.
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

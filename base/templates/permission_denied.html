@@ -1,0 +1,141 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Access Denied | Invic System</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background:
+          linear-gradient(rgba(10, 38, 71, 0.92), rgba(10, 38, 71, 0.95)),
+          url("{% static 'images/q10.jpg' %}");
+
+        background-size: cover;
+        background-position: center;
+        color: white;
+      }
+
+      .card {
+        width: 100%;
+        max-width: 520px;
+        padding: 40px;
+        text-align: center;
+
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(14px);
+        border-radius: 20px;
+
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        animation: fadeIn 0.6s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .icon {
+        font-size: 50px;
+        color: #ff4d4d;
+        margin-bottom: 15px;
+      }
+
+      h1 {
+        font-size: 26px;
+        margin-bottom: 10px;
+      }
+
+      p {
+        color: #d6d6d6;
+        font-size: 14px;
+        line-height: 1.7;
+        margin-bottom: 25px;
+      }
+
+      .btn {
+        display: inline-block;
+        width: 100%;
+        padding: 14px;
+        border-radius: 50px;
+        background: linear-gradient(135deg, #2c74b3, #1e5f99);
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+        margin-bottom: 12px;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        background: linear-gradient(135deg, #1e5f99, #144272);
+      }
+
+      .btn-back {
+        display: inline-block;
+        width: 100%;
+        padding: 12px;
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: 0.3s;
+      }
+
+      .btn-back:hover {
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .footer {
+        margin-top: 15px;
+        font-size: 12px;
+        color: #aaa;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="card">
+      <div class="icon">⛔</div>
+
+      <h1>Access Denied</h1>
+
+      <p>
+        You do not have permission to access this section of the Invic System.
+        This area is restricted to authorized administrators only.
+      </p>
+
+      <a href="javascript:history.back()" class="btn-back"> Go Back </a>
+
+      <div class="footer">Security enforcement active • Invic System</div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <title>Recorded Videos</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        min-height: 100vh;
+        background:
+          linear-gradient(rgba(5, 15, 35, 0.78), rgba(5, 15, 35, 0.78)),
+          url("{% static 'images/q8.jpg' %}") no-repeat center center fixed;
+        background-size: cover;
+        overflow-x: hidden;
+        color: white;
+        position: relative;
+      }
+
+      /* FLOATING VERSES */
+
+      .floating-text {
+        position: fixed;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 14px;
+        font-weight: bold;
+        text-shadow:
+          0 0 10px rgba(255, 255, 255, 0.9),
+          0 0 20px rgba(0, 191, 255, 0.8),
+          0 0 35px rgba(0, 191, 255, 0.6);
+        animation: floatText linear infinite;
+        pointer-events: none;
+        z-index: 1;
+        white-space: nowrap;
+      }
+
+      .floating-text:nth-child(1) {
+        top: 20%;
+        left: -30%;
+        animation-duration: 28s;
+      }
+
+      .floating-text:nth-child(2) {
+        top: 35%;
+        left: -40%;
+        animation-duration: 35s;
+      }
+
+      .floating-text:nth-child(3) {
+        top: 55%;
+        left: -25%;
+        animation-duration: 30s;
+      }
+
+      .floating-text:nth-child(4) {
+        top: 75%;
+        left: -50%;
+        animation-duration: 38s;
+      }
+
+      .floating-text:nth-child(5) {
+        top: 12%;
+        left: -35%;
+        animation-duration: 33s;
+      }
+
+      .floating-text:nth-child(6) {
+        top: 88%;
+        left: -45%;
+        animation-duration: 40s;
+      }
+
+      @keyframes floatText {
+        0% {
+          transform: translateX(0);
+          opacity: 0;
+        }
+
+        10% {
+          opacity: 1;
+        }
+
+        90% {
+          opacity: 1;
+        }
+
+        100% {
+          transform: translateX(170vw);
+          opacity: 0;
+        }
+      }
+
+      /* NAVBAR */
+
+      .navbar {
+        background: rgba(10, 38, 71, 0.92);
+        backdrop-filter: blur(10px);
+        padding: 14px 20px;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .navbar ul {
+        list-style-type: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .navbar li {
+        display: inline-block;
+      }
+
+      .navbar a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 10px 14px;
+        border-radius: 8px;
+        transition: 0.3s ease;
+      }
+
+      .navbar a:hover {
+        background: rgba(255, 255, 255, 0.15);
+        color: #7fd3ff;
+      }
+
+      .menu-icon {
+        display: none;
+        cursor: pointer;
+      }
+
+      /* MAIN CONTAINER */
+
+      .page-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 120px 20px 50px;
+        position: relative;
+        z-index: 5;
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(12px);
+        padding: 35px;
+        border-radius: 25px;
+        box-shadow:
+          0 10px 40px rgba(0, 0, 0, 0.35),
+          0 0 20px rgba(0, 191, 255, 0.15);
+        width: 100%;
+        max-width: 700px;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      h1 {
+        margin-bottom: 20px;
+        color: white;
+        font-size: 32px;
+        text-shadow:
+          0 0 10px rgba(255, 255, 255, 0.6),
+          0 0 20px rgba(0, 191, 255, 0.4);
+      }
+
+      .subtitle {
+        color: #d7e7ff;
+        margin-bottom: 25px;
+        line-height: 1.7;
+      }
+
+      /* SEARCH FORM */
+
+      form {
+        margin-bottom: 25px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      input[type="text"] {
+        padding: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        width: 70%;
+        background: rgba(255, 255, 255, 0.08);
+        color: white;
+        outline: none;
+        font-size: 15px;
+      }
+
+      input[type="text"]::placeholder {
+        color: #d8d8d8;
+      }
+
+      input[type="submit"] {
+        padding: 14px 22px;
+        background: linear-gradient(135deg, #007bff, #00bfff);
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s ease;
+      }
+
+      input[type="submit"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 191, 255, 0.4);
+      }
+
+      /* VIDEO LIST */
+
+      .video-list {
+        list-style-type: none;
+        padding: 0;
+        margin-top: 20px;
+      }
+
+      .video-list li {
+        margin-bottom: 15px;
+      }
+
+      .video-list a {
+        text-decoration: none;
+        display: block;
+        padding: 16px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.08);
+        color: #ffffff;
+        transition: 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .video-list a:hover {
+        transform: translateY(-4px);
+        background: rgba(0, 191, 255, 0.15);
+        box-shadow: 0 10px 25px rgba(0, 191, 255, 0.25);
+      }
+
+      .video-list i {
+        margin-right: 10px;
+        color: #7fd3ff;
+      }
+
+      /* ALERTS */
+
+      .error {
+        color: #ffb3b3;
+        background: rgba(255, 0, 0, 0.12);
+        padding: 16px;
+        border-radius: 12px;
+        margin-top: 20px;
+      }
+
+      .no-videos {
+        color: #d7e7ff;
+        background: rgba(255, 255, 255, 0.08);
+        padding: 16px;
+        border-radius: 12px;
+        margin-top: 20px;
+      }
+
+      /* GLOW ORB */
+
+      .glow-orb {
+        position: fixed;
+        width: 250px;
+        height: 250px;
+        background: rgba(0, 191, 255, 0.18);
+        filter: blur(90px);
+        border-radius: 50%;
+        z-index: 0;
+        animation: orbMove 12s infinite alternate ease-in-out;
+      }
+
+      .orb1 {
+        top: 10%;
+        left: -5%;
+      }
+
+      .orb2 {
+        bottom: 5%;
+        right: -5%;
+        background: rgba(255, 255, 255, 0.12);
+        animation-duration: 15s;
+      }
+
+      @keyframes orbMove {
+        from {
+          transform: translateY(0px) translateX(0px);
+        }
+
+        to {
+          transform: translateY(40px) translateX(40px);
+        }
+      }
+
+      /* MOBILE */
+
+      @media (max-width: 700px) {
+        .navbar ul {
+          display: none;
+          flex-direction: column;
+          background: rgba(10, 38, 71, 0.97);
+          padding: 20px;
+          border-radius: 15px;
+          margin-top: 15px;
+        }
+
+        .navbar ul.show {
+          display: flex;
+        }
+
+        .menu-icon {
+          display: block;
+          color: white;
+          font-size: 24px;
+          position: absolute;
+          right: 20px;
+          top: 15px;
+        }
+
+        h1 {
+          font-size: 26px;
+        }
+
+        input[type="text"] {
+          width: 100%;
+        }
+
+        input[type="submit"] {
+          width: 100%;
+        }
+
+        form {
+          flex-direction: column;
+        }
+
+        .container {
+          padding: 25px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- FLOATING ENCOURAGING TEXTS -->
+
+    <div class="floating-text">
+      “Indeed, with hardship comes ease.” — Qur'an 94:6
+    </div>
+    <div class="floating-text">“Be strong and courageous.” — Joshua 1:9</div>
+    <div class="floating-text">“Allah is with the patient.” — Qur'an 2:153</div>
+    <div class="floating-text">
+      “I can do all things through Christ.” — Philippians 4:13
+    </div>
+    <div class="floating-text">
+      “Do not lose hope in the mercy of Allah.” — Qur'an 39:53
+    </div>
+    <div class="floating-text">“The Lord is my shepherd.” — Psalm 23:1</div>
+
+    <!-- GLOW EFFECTS -->
+
+    <div class="glow-orb orb1"></div>
+    <div class="glow-orb orb2"></div>
+
+    <!-- NAVBAR -->
+
+    <div class="navbar">
+      <span class="menu-icon" onclick="toggleMenu()">
+        <i class="fa-solid fa-bars"></i>
+      </span>
+
+      <ul id="menu">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'lobby' %}">start_video--> room </a></li>
+        <li><a href="{% url 'chatindex' %}">Chat</a></li>
+        <li><a href="{% url 'email_form' %}">Email</a></li>
+        <li><a href="{% url 'aboutus' %}">About Us</a></li>
+        <li><a href="{% url 'contactus' %}">Contact Us</a></li>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+      </ul>
+    </div>
+
+    <!-- MAIN -->
+
+    <div class="page-wrapper">
+      <div class="container">
+        <h1>
+          <i class="fa-solid fa-cloud-arrow-down"></i>
+          Recorded Videos
+        </h1>
+
+        <p class="subtitle">
+          Search and download recorded conference sessions securely using the
+          official room name.
+        </p>
+
+        <form method="get" action="{% url 'video_list' %}">
+          <input
+            type="text"
+            name="room_name"
+            placeholder="Enter room name..."
+            value="{{ request.GET.room_name }}"
+          />
+
+          <input type="submit" value="Search" />
+        </form>
+
+        {% if request.GET.room_name %} {% if videos %}
+
+        <ul class="video-list">
+          {% for video in videos %}
+          <li>
+            <a href="{% url 'download_video' video.id %}">
+              <i class="fa-solid fa-video"></i>
+              {{ video.user.username }} — {{ video.room_name }} — {{
+              video.timestamp }}
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+
+        {% else %}
+
+        <div class="error">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          No videos found for the specified room name.<br />
+          Check the spelling or remove extra spaces.
+        </div>
+
+        {% endif %} {% else %}
+
+        <div class="no-videos">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          Please enter a room name to search for videos.
+        </div>
+
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- MOBILE NAV -->
+
+    <script>
+      function toggleMenu() {
+        var menu = document.getElementById("menu");
+
+        if (menu.classList.contains("show")) {
+          menu.classList.remove("show");
+        } else {
+          menu.classList.add("show");
+        }
+      }
+    </script>
+
+    <!-- BACKGROUND SLIDER -->
+
+    <script>
+      const imageUrls = [
+        "{% static 'images/q1.jpg' %}",
+        "{% static 'images/q2.jpg' %}",
+        "{% static 'images/q3.jpg' %}",
+        "{% static 'images/q4.jpg' %}",
+        "{% static 'images/q5.jpg' %}",
+        "{% static 'images/q6.jpg' %}",
+        "{% static 'images/q7.jpg' %}",
+        "{% static 'images/q8.jpg' %}",
+        "{% static 'images/q9.jpg' %}",
+        "{% static 'images/q10.jpg' %}",
+      ];
+
+      let currentImageIndex = 0;
+
+      function changeBackgroundImage() {
+        document.body.style.backgroundImage = `linear-gradient(rgba(5,15,35,0.78), rgba(5,15,35,0.78)),
+                url(${imageUrls[currentImageIndex]})`;
+
+        currentImageIndex = (currentImageIndex + 1) % imageUrls.length;
+      }
+
+      setInterval(changeBackgroundImage, 4000);
+    </script>
+  </body>
+</html>

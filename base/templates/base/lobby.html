@@ -1,0 +1,672 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invic System | Meeting Portal</title>
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #0a2647;
+        --secondary: #144272;
+        --accent: #2c74b3;
+        --light: #f5f7fa;
+        --success: #00c896;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        min-height: 100vh;
+
+        background:
+          linear-gradient(rgba(7, 22, 41, 0.88), rgba(7, 22, 41, 0.88)),
+          url("{% static 'images/q1.jpg' %}");
+
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+
+        overflow-x: hidden;
+        color: white;
+
+        transition: background-image 1.5s ease-in-out;
+      }
+
+      /* =========================
+           NAVBAR
+        ========================== */
+
+      .navbar {
+        background: rgba(10, 38, 71, 0.92);
+        backdrop-filter: blur(12px);
+        padding: 15px 0;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .navbar-brand {
+        color: white !important;
+        font-size: 28px;
+        font-weight: 700;
+      }
+
+      .nav-link {
+        color: white !important;
+        margin-left: 15px;
+        font-weight: 500;
+        transition: 0.3s;
+      }
+
+      .nav-link:hover {
+        color: #90caf9 !important;
+      }
+
+      /* =========================
+           SIGNATURE RING
+        ========================== */
+
+      .signature-ring {
+        position: fixed;
+        top: 95px;
+        left: 25px;
+
+        width: 90px;
+        height: 90px;
+
+        border-radius: 50%;
+
+        border: 8px solid transparent;
+        border-top: 8px solid #00c6ff;
+        border-right: 8px solid #2c74b3;
+        border-bottom: 8px solid #90caf9;
+        border-left: 8px solid #ffffff;
+
+        animation: spinRing 4s linear infinite;
+
+        z-index: 2000;
+
+        box-shadow:
+          0 0 20px rgba(255, 255, 255, 0.3),
+          0 0 40px rgba(44, 116, 179, 0.4);
+      }
+
+      .signature-ring::before {
+        content: "";
+        position: absolute;
+
+        top: 50%;
+        left: 50%;
+
+        width: 35px;
+        height: 35px;
+
+        transform: translate(-50%, -50%);
+
+        border-radius: 50%;
+
+        background: rgba(255, 255, 255, 0.12);
+
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+      }
+
+      @keyframes spinRing {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* =========================
+           HERO SECTION
+        ========================== */
+
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding-top: 120px;
+        padding-bottom: 80px;
+      }
+
+      .hero-title {
+        font-size: 62px;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      .hero-subtitle {
+        margin-top: 25px;
+        font-size: 19px;
+        line-height: 1.9;
+        color: #d8d8d8;
+      }
+
+      .status-badges {
+        margin-top: 35px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .status-badge {
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 10px 18px;
+        border-radius: 50px;
+        font-size: 14px;
+        backdrop-filter: blur(8px);
+      }
+
+      .status-badge i {
+        color: #00ffbf;
+        margin-right: 8px;
+      }
+
+      /* =========================
+           MEETING CARD
+        ========================== */
+
+      .meeting-card {
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+
+        border-radius: 30px;
+
+        padding: 40px;
+
+        backdrop-filter: blur(14px);
+
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35);
+
+        position: relative;
+        overflow: hidden;
+      }
+
+      .meeting-card::before {
+        content: "";
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+        top: -80px;
+        right: -80px;
+      }
+
+      .meeting-title {
+        font-size: 34px;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+
+      .meeting-text {
+        color: #d8d8d8;
+        margin-bottom: 35px;
+      }
+
+      .form-label {
+        margin-bottom: 10px;
+        font-weight: 500;
+      }
+
+      .input-group {
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 15px;
+        overflow: hidden;
+        margin-bottom: 25px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .input-group-text {
+        background: transparent;
+        border: none;
+        color: #90caf9;
+        padding-left: 18px;
+      }
+
+      .form-control {
+        background: transparent !important;
+        border: none !important;
+        color: white !important;
+        height: 58px;
+        font-size: 16px;
+      }
+
+      .form-control::placeholder {
+        color: #d8d8d8;
+      }
+
+      .form-control:focus {
+        box-shadow: none !important;
+      }
+
+      /* BUTTON */
+
+      .join-btn {
+        width: 100%;
+        height: 58px;
+
+        border: none;
+
+        border-radius: 15px;
+
+        background: linear-gradient(135deg, #2c74b3, #00c6ff);
+
+        color: white;
+
+        font-size: 17px;
+        font-weight: 600;
+
+        transition: 0.4s;
+      }
+
+      .join-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 198, 255, 0.4);
+      }
+
+      /* =========================
+           PROFILE PANEL
+        ========================== */
+
+      .profile-panel {
+        margin-top: 35px;
+
+        background: rgba(255, 255, 255, 0.08);
+
+        border-radius: 20px;
+
+        padding: 25px;
+
+        text-align: center;
+
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .profile-panel img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 4px solid white;
+        margin-bottom: 15px;
+      }
+
+      .profile-panel h4 {
+        margin-bottom: 8px;
+      }
+
+      .profile-panel p {
+        color: #d8d8d8;
+        margin-bottom: 6px;
+      }
+
+      /* =========================
+           RESPONSIVE
+        ========================== */
+
+      @media (max-width: 991px) {
+        .hero {
+          text-align: center;
+        }
+
+        .hero-title {
+          font-size: 44px;
+        }
+
+        .meeting-card {
+          margin-top: 50px;
+        }
+
+        .status-badges {
+          justify-content: center;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .signature-ring {
+          width: 70px;
+          height: 70px;
+          border-width: 6px;
+
+          top: 85px;
+          left: 15px;
+        }
+
+        .signature-ring::before {
+          width: 28px;
+          height: 28px;
+        }
+
+        .hero-title {
+          font-size: 36px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .signature-ring {
+          width: 55px;
+          height: 55px;
+          border-width: 5px;
+
+          top: 80px;
+          left: 10px;
+        }
+
+        .signature-ring::before {
+          width: 22px;
+          height: 22px;
+        }
+
+        .hero-title {
+          font-size: 30px;
+        }
+
+        .hero-subtitle {
+          font-size: 16px;
+        }
+
+        .meeting-card {
+          padding: 25px;
+        }
+
+        .navbar-brand {
+          font-size: 22px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <i class="fa-solid fa-video"></i>
+          Invic System
+        </a>
+
+        <button
+          class="navbar-toggler bg-light"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}">
+                <i class="fa-solid fa-house"></i>
+                Home
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'chatindex' %}">
+                <i class="fa-solid fa-comments"></i>
+                Chat
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'email_form' %}">
+                <i class="fa-solid fa-envelope"></i>
+                Participant Notifications
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'aboutus' %}">
+                <i class="fa-solid fa-circle-info"></i>
+                About
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'contactus' %}">
+                <i class="fa-solid fa-phone"></i>
+                Contact
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ROTATING RING -->
+
+    <div class="signature-ring"></div>
+
+    <!-- HERO -->
+
+    <section class="hero">
+      <div class="container">
+        <div class="row align-items-center">
+          <!-- LEFT -->
+
+          <div class="col-lg-6">
+            <h1 class="hero-title">Secure Digital Collaboration Portal</h1>
+
+            <p class="hero-subtitle">
+              Invic Stream enables secure institutional conferencing, real-time
+              communication, administrative coordination, and collaborative
+              engagement for modern organizations.
+            </p>
+
+            <div class="status-badges">
+              <div class="status-badge">
+                <i class="fa-solid fa-circle-check"></i>
+                Encrypted Meetings
+              </div>
+
+              <div class="status-badge">
+                <i class="fa-solid fa-circle-check"></i>
+                Real-Time Communication
+              </div>
+
+              <div class="status-badge">
+                <i class="fa-solid fa-circle-check"></i>
+                Secure Access Control
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT -->
+
+          <div class="col-lg-6">
+            <div class="meeting-card">
+              <h2 class="meeting-title">Launch Conference</h2>
+
+              <p class="meeting-text">
+                Join or create a secure collaboration meeting session.
+              </p>
+
+              <form id="form">
+                <label class="form-label"> Meeting ID </label>
+
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="fa-solid fa-hashtag"></i>
+                  </span>
+
+                  <input
+                    id="room-name-input"
+                    type="text"
+                    name="room"
+                    class="form-control"
+                    placeholder="Enter your personalized meeting ID..."
+                    style="text-transform: uppercase"
+                  />
+                </div>
+
+                <label class="form-label"> Participant Name </label>
+
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="fa-solid fa-user"></i>
+                  </span>
+
+                  <input
+                    type="text"
+                    name="name"
+                    class="form-control"
+                    placeholder="Enter participant name..."
+                    style="text-transform: uppercase"
+                  />
+                </div>
+
+                <button type="submit" class="join-btn">
+                  <i class="fa-solid fa-video"></i>
+                  Join Conference
+                </button>
+              </form>
+
+              <!-- PROFILE -->
+
+              <div class="profile-panel">
+                {% if user.is_authenticated %} {% if user.profile_picture %}
+                <img
+                  src="{{ user.profile_picture.url }}"
+                  alt="Profile Picture"
+                />
+                {% else %}
+                <img
+                  src="{% static 'images/default_profile_picture.jpg' %}"
+                  alt="Profile Picture"
+                />
+                {% endif %}
+
+                <h4>{{ user.username }}</h4>
+
+                {% if user.is_admin_staff %}
+                <p>Administrator Access</p>
+                {% else %}
+                <p>Registered Participant</p>
+                {% endif %}
+
+                <p>
+                  <i class="fa-solid fa-envelope"></i>
+                  {{ user.email }}
+                </p>
+
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bootstrap -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      let form = document.getElementById("form");
+
+      let handleSubmit = async (e) => {
+        e.preventDefault();
+
+        let room = e.target.room.value.trim().toUpperCase();
+        let name = e.target.name.value.trim();
+
+        // Validation
+        if (!room) {
+          alert("Please enter a Meeting ID");
+          return;
+        }
+
+        if (!name) {
+          alert("Please enter a Participant Name");
+          return;
+        }
+
+        let response = await fetch(`/get_token/?channel=${room}`);
+        let data = await response.json();
+
+        let UID = data.uid;
+        let token = data.token;
+
+        sessionStorage.setItem("UID", UID);
+        sessionStorage.setItem("token", token);
+        sessionStorage.setItem("room", room);
+        sessionStorage.setItem("name", name);
+
+        // Redirect to room page
+        window.location.href = `/room/${encodeURIComponent(room)}/`;
+      };
+
+      form.addEventListener("submit", handleSubmit);
+
+      document.querySelector("#room-name-input").focus();
+
+      document.querySelector("#room-name-input").onkeyup = function (e) {
+        if (e.key === "Enter") {
+          document.querySelector("#form").submit();
+        }
+      };
+
+      /* BACKGROUND SLIDESHOW */
+
+      const imageUrls = [
+        "{% static 'images/q1.jpg' %}",
+        "{% static 'images/q1.jpg' %}",
+        "{% static 'images/q1.jpg' %}",
+        "{% static 'images/q1.jpg' %}",
+        "{% static 'images/q1.jpg' %}",
+        "{% static 'images/q1.jpg' %}",
+        "{% static 'images/q1.jpg' %}",
+        "{% static 'images/q1.jpg' %}",
+        "{% static 'images/q1.jpg' %}",
+        "{% static 'images/q1.jpg' %}",
+      ];
+
+      let currentImageIndex = 0;
+
+      function changeBackgroundImage() {
+        document.body.style.backgroundImage = `
+        linear-gradient(rgba(7,22,41,0.88), rgba(7,22,41,0.88)),
+        url(${imageUrls[currentImageIndex]})
+        `;
+
+        currentImageIndex = (currentImageIndex + 1) % imageUrls.length;
+      }
+
+      setInterval(changeBackgroundImage, 6000);
+    </script>
+  </body>
+</html>

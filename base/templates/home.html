@@ -1,0 +1,741 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invic System | Collaboration Platform</title>
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #0a2647;
+        --secondary: #144272;
+        --accent: #2c74b3;
+        --light: #f5f7fa;
+        --success: #2e8b57;
+        --danger: #ff4d6d;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background:
+          linear-gradient(rgba(10, 38, 71, 0.88), rgba(10, 38, 71, 0.88)),
+          url("{% static 'images/q10.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: white;
+        overflow-x: hidden;
+      }
+
+      /* Navbar */
+
+      .navbar {
+        background: rgba(10, 38, 71, 0.92);
+        backdrop-filter: blur(8px);
+        padding: 15px 0;
+      }
+
+      .navbar-brand {
+        font-size: 28px;
+        font-weight: 700;
+        color: white !important;
+      }
+
+      .nav-link {
+        color: white !important;
+        margin-left: 15px;
+        font-weight: 500;
+        transition: 0.3s;
+        position: relative;
+      }
+
+      .nav-link:hover {
+        color: #90caf9 !important;
+      }
+
+      /* Admin badge */
+
+      .admin-badge {
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        background: var(--danger);
+        color: white;
+        font-size: 11px;
+        font-weight: 700;
+        min-width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2px 6px;
+        border: 2px solid white;
+        animation: pulseBadge 1.5s infinite;
+      }
+
+      @keyframes pulseBadge {
+        0% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(255, 77, 109, 0.7);
+        }
+
+        70% {
+          transform: scale(1.08);
+          box-shadow: 0 0 0 10px rgba(255, 77, 109, 0);
+        }
+
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(255, 77, 109, 0);
+        }
+      }
+
+      /* Hero Section */
+
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding-top: 100px;
+      }
+
+      .hero-title {
+        font-size: 60px;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      .hero-subtitle {
+        font-size: 20px;
+        color: #dcdcdc;
+        margin-top: 20px;
+        margin-bottom: 35px;
+        line-height: 1.8;
+      }
+
+      .hero-buttons .btn {
+        padding: 14px 30px;
+        margin-right: 15px;
+        margin-bottom: 15px;
+        border-radius: 50px;
+        font-weight: 600;
+      }
+
+      .btn-primary-custom {
+        background: var(--accent);
+        color: white;
+        border: none;
+      }
+
+      .btn-primary-custom:hover {
+        background: #1e5f99;
+      }
+
+      .btn-outline-custom {
+        border: 2px solid white;
+        color: white;
+      }
+
+      .btn-outline-custom:hover {
+        background: white;
+        color: var(--primary);
+      }
+
+      /* Profile Card */
+
+      .profile-card {
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 25px;
+        padding: 30px;
+        text-align: center;
+        backdrop-filter: blur(8px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      }
+
+      .profile-card img {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid white;
+        margin-bottom: 20px;
+      }
+
+      .profile-card h4 {
+        margin-bottom: 5px;
+      }
+
+      .profile-card p {
+        color: #dcdcdc;
+      }
+
+      /* Features */
+
+      .section {
+        padding: 100px 0;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+
+      .section-title h2 {
+        font-size: 42px;
+        font-weight: 700;
+      }
+
+      .section-title p {
+        color: #dcdcdc;
+        margin-top: 15px;
+      }
+
+      .feature-card {
+        background: white;
+        color: #333;
+        border-radius: 20px;
+        padding: 35px 25px;
+        transition: 0.4s;
+        height: 100%;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .feature-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .feature-card i {
+        font-size: 50px;
+        color: var(--accent);
+        margin-bottom: 20px;
+      }
+
+      .feature-card a {
+        text-decoration: none;
+      }
+
+      /* Stats */
+
+      .stats {
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 25px;
+        padding: 50px 20px;
+      }
+
+      .stat-box h2 {
+        font-size: 45px;
+        font-weight: 700;
+      }
+
+      .stat-box p {
+        color: #dcdcdc;
+      }
+
+      /* Footer */
+
+      footer {
+        background: #081b31;
+        padding: 40px 0;
+        text-align: center;
+      }
+
+      footer p {
+        margin: 0;
+        color: #dcdcdc;
+      }
+
+      /* Signature Ring */
+
+      .signature-ring {
+        position: fixed;
+        top: 95px;
+        left: 25px;
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        border: 8px solid transparent;
+        border-top: 8px solid #00c6ff;
+        border-right: 8px solid #2c74b3;
+        border-bottom: 8px solid #90caf9;
+        border-left: 8px solid #ffffff;
+        animation: spinRing 4s linear infinite;
+        z-index: 2000;
+
+        box-shadow:
+          0 0 20px rgba(255, 255, 255, 0.3),
+          0 0 40px rgba(44, 116, 179, 0.4);
+
+        backdrop-filter: blur(5px);
+      }
+
+      .signature-ring::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 35px;
+        height: 35px;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+      }
+
+      @keyframes spinRing {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Responsive */
+
+      @media (max-width: 991px) {
+        .hero {
+          text-align: center;
+        }
+
+        .hero-title {
+          font-size: 42px;
+        }
+
+        .profile-card {
+          margin-top: 50px;
+        }
+
+        .nav-link {
+          margin-left: 0;
+          margin-top: 10px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .signature-ring {
+          width: 70px;
+          height: 70px;
+          border-width: 6px;
+          top: 85px;
+          left: 15px;
+        }
+
+        .signature-ring::before {
+          width: 28px;
+          height: 28px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .hero-title {
+          font-size: 34px;
+        }
+
+        .hero-subtitle {
+          font-size: 17px;
+        }
+
+        .hero-buttons .btn {
+          width: 100%;
+        }
+
+        .navbar-brand {
+          font-size: 22px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .signature-ring {
+          width: 55px;
+          height: 55px;
+          border-width: 5px;
+          top: 80px;
+          left: 10px;
+        }
+
+        .signature-ring::before {
+          width: 22px;
+          height: 22px;
+        }
+      }
+      @media (max-width: 576px) {
+        .hero {
+          min-height: auto;
+          padding-top: 120px;
+          padding-bottom: 40px;
+        }
+
+        .hero .row {
+          flex-direction: column;
+        }
+
+        .hero-title {
+          font-size: 2.2rem;
+          line-height: 1.2;
+        }
+
+        .hero-subtitle {
+          font-size: 16px;
+          line-height: 1.7;
+        }
+
+        .hero-buttons .btn {
+          width: 100%;
+          margin-right: 0;
+        }
+
+        .profile-card {
+          margin-top: 30px;
+          padding: 20px;
+        }
+
+        .container {
+          overflow-x: hidden;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <i class="fa-solid fa-video"></i> Invic System
+        </a>
+
+        <button
+          class="navbar-toggler bg-light"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'lobby' %}">
+                <i class="fa-solid fa-users"></i> Meetings
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'chatindex' %}">
+                <i class="fa-solid fa-comments"></i> Chat
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'all_answers' %}">
+                <i class="fa-solid fa-circle-question"></i> FAQs
+              </a>
+            </li>
+
+            <!-- ADMIN DASHBOARD WITH BADGE -->
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'admin_dashboard' %}">
+                <i class="fa-solid fa-chart-line"></i>
+                Admin-Dashboard {% if unanswered_questions_count > 0 %}
+                <span class="admin-badge">
+                  {{ unanswered_questions_count }}
+                </span>
+                {% endif %}
+              </a>
+            </li>
+
+            <!-- ADD STAFF NUMBER -->
+            {% if user.is_admin_staff %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'add_admin_staff_number' %}">
+                <i class="fa-solid fa-user-plus"></i>
+                Add Staff Number?
+              </a>
+            </li>
+            {% endif %}
+
+            <!-- UPLOAD VIDEO -->
+            {% if user.is_admin_staff %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'upload' %}">
+                <i class="fa-solid fa-upload"></i>
+                Upload Video
+              </a>
+            </li>
+            {% endif %}
+
+            <!-- DOWNLOAD VIDEOS -->
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'video_list' %}">
+                <i class="fa-solid fa-download"></i>
+                Recorded Videos
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="signature-ring"></div>
+
+    <!-- HERO -->
+
+    <section class="hero">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-7">
+            <h1 class="hero-title">
+              Secure Institutional Collaboration Platform
+            </h1>
+
+            <p class="hero-subtitle">
+              Invic System is an enterprise communication and video conferencing
+              platform designed for institutions, administrative coordination,
+              real-time collaboration, and secure digital engagement.
+            </p>
+
+            <div class="hero-buttons">
+              <a href="{% url 'lobby' %}" class="btn btn-primary-custom">
+                <i class="fa-solid fa-video"></i> Join Meeting
+              </a>
+
+              <a href="{% url 'chatindex' %}" class="btn btn-outline-custom">
+                <i class="fa-solid fa-comments"></i> Open Chat
+              </a>
+
+              {% if user.is_admin_staff %}
+              <a href="{% url 'upload' %}" class="btn btn-primary-custom">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                Upload Recording
+              </a>
+              {% endif %}
+
+              <a href="{% url 'video_list' %}" class="btn btn-outline-custom">
+                <i class="fa-solid fa-file-video"></i>
+                Recorded Videos
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="profile-card">
+              {% if user.is_authenticated %} {% if user.profile_picture %}
+              <img src="{{ user.profile_picture.url }}" alt="Profile Picture" />
+              {% else %}
+              <img
+                src="{% static 'images/default_profile_picture.jpg' %}"
+                alt="Profile Picture"
+              />
+              {% endif %}
+
+              <h4>{{ user.username }}</h4>
+
+              {% if user.is_admin_staff %}
+              <p>Administrator</p>
+              {% else %}
+              <p>Registered User</p>
+              {% endif %}
+
+              <hr class="bg-light" />
+
+              <p>
+                <i class="fa-solid fa-envelope"></i>
+                {{ user.email }}
+              </p>
+
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Platform Features</h2>
+
+          <p>
+            Designed for secure institutional communication and collaboration.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4">
+            <div class="feature-card text-center">
+              <i class="fa-solid fa-video"></i>
+
+              <h4>Video Conferencing</h4>
+
+              <p>
+                Real-time virtual meetings with secure participant management.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="feature-card text-center">
+              <i class="fa-solid fa-comments"></i>
+
+              <h4>Real-Time Chat</h4>
+
+              <p>Instant communication and collaborative messaging system.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="feature-card text-center">
+              <i class="fa-solid fa-folder-open"></i>
+
+              <h4>Recorded Sessions</h4>
+
+              <p>Secure storage and management of conference recordings.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="feature-card text-center">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+
+              <h4>Upload Recorded Video</h4>
+
+              <p>Upload your conference recordings securely to the database.</p>
+
+              {% if user.is_admin_staff %}
+              <a href="{% url 'upload' %}" class="btn btn-primary-custom mt-3">
+                Upload Video
+              </a>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="feature-card text-center">
+              <i class="fa-solid fa-download"></i>
+
+              <h4>Download Recorded Videos</h4>
+
+              <p>Access and download uploaded meeting recordings anytime.</p>
+
+              <a
+                href="{% url 'video_list' %}"
+                class="btn btn-primary-custom mt-3"
+              >
+                Open Videos
+              </a>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="feature-card text-center">
+              <i class="fa-solid fa-user-shield"></i>
+
+              <h4>Role-Based Access</h4>
+
+              <p>Administrative and participant privilege management system.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="feature-card text-center">
+              <i class="fa-solid fa-question"></i>
+
+              <h4>FAQs & Knowledge Base</h4>
+
+              <p>Centralized question and answer support platform.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="feature-card text-center">
+              <i class="fa-solid fa-envelope"></i>
+
+              <h4>Email Notifications</h4>
+
+              <p>
+                Integrated communication and participant notification services.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+
+    <section class="section">
+      <div class="container">
+        <div class="stats">
+          <div class="row text-center">
+            <div class="col-md-3 stat-box">
+              <h2>24/7</h2>
+              <p>Availability</p>
+            </div>
+
+            <div class="col-md-3 stat-box">
+              <h2>100%</h2>
+              <p>Secure Access</p>
+            </div>
+
+            <div class="col-md-3 stat-box">
+              <h2>Real-Time</h2>
+              <p>Communication</p>
+            </div>
+
+            <div class="col-md-3 stat-box">
+              <h2>Cloud</h2>
+              <p>Meeting Records</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer>
+      <div class="container">
+        <p>
+          © 2026 Invic System — Institutional Collaboration Platform | Ministry
+          ICT Project Submission
+        </p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

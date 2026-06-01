@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+
+    <title>INVIC | Secure Login</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        min-height: 100vh;
+        color: white;
+        overflow-x: hidden;
+
+        background:
+          linear-gradient(rgba(2, 6, 23, 0.85), rgba(2, 6, 23, 0.9)),
+          url("{% static 'images/q1.jpg' %}") center/cover no-repeat;
+
+        transition: background-image 1.2s ease-in-out;
+      }
+
+      /* ORBS */
+      .orb {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(120px);
+        opacity: 0.18;
+        z-index: 0;
+      }
+
+      .orb1 {
+        width: 260px;
+        height: 260px;
+        background: #2563eb;
+        top: -100px;
+        left: -100px;
+      }
+
+      .orb2 {
+        width: 320px;
+        height: 320px;
+        background: #06b6d4;
+        bottom: -120px;
+        right: -120px;
+      }
+
+      /* NAV */
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 16px 22px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        background: rgba(2, 6, 23, 0.6);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        z-index: 1000;
+      }
+
+      .logo {
+        font-weight: 800;
+        letter-spacing: 2px;
+      }
+
+      .menu {
+        display: flex;
+        gap: 18px;
+      }
+
+      .menu a {
+        color: rgba(255, 255, 255, 0.75);
+        text-decoration: none;
+        font-size: 0.9rem;
+        padding: 8px 12px;
+        border-radius: 10px;
+        transition: 0.2s;
+      }
+
+      .menu a:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: white;
+      }
+
+      .hamburger {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.6rem;
+        cursor: pointer;
+      }
+
+      /* LAYOUT */
+      .wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 100px 20px 40px;
+
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        gap: 60px;
+
+        align-items: center;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* HERO */
+      .hero h1 {
+        font-size: clamp(2.8rem, 6vw, 5rem);
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -2px;
+        margin-bottom: 20px;
+      }
+
+      .hero span {
+        color: #38bdf8;
+      }
+
+      .desc {
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 30px;
+        line-height: 1.7;
+      }
+
+      /* FORM (CLEAN - NO BACKGROUND LOOK) */
+      .form-container {
+        padding: 0;
+      }
+
+      .top-title h2 {
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 8px;
+      }
+
+      .top-title p {
+        color: rgba(255, 255, 255, 0.65);
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+      }
+
+      form p {
+        margin-bottom: 16px;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 14px 0;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        outline: none;
+        font-size: 1rem;
+      }
+
+      input:focus {
+        border-color: #38bdf8;
+      }
+
+      label {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      /* BUTTONS */
+      .btn {
+        width: 100%;
+        padding: 14px;
+        border-radius: 12px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        margin-top: 12px;
+        transition: 0.2s;
+      }
+
+      .login-btn {
+        background: linear-gradient(90deg, #2563eb, #38bdf8);
+        color: white;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .secondary {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+      }
+
+      .alert {
+        margin-bottom: 12px;
+        font-size: 0.9rem;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* different message types */
+      .alert.error {
+        color: #ff7b9d;
+      }
+
+      .alert.warning {
+        color: #fbbf24;
+      }
+
+      .alert.success {
+        color: #34d399;
+      }
+
+      /* POPUP */
+      .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #0b1220;
+        padding: 20px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 9999;
+      }
+
+      .close-popup {
+        position: absolute;
+        top: 8px;
+        right: 10px;
+        cursor: pointer;
+      }
+
+      /* MOBILE */
+      @media (max-width: 900px) {
+        .wrapper {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+
+        .hero {
+          text-align: center;
+        }
+
+        .menu {
+          display: none;
+          position: absolute;
+          top: 60px;
+          right: 20px;
+          flex-direction: column;
+          background: rgba(2, 6, 23, 0.95);
+          padding: 12px;
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .menu.active {
+          display: flex;
+        }
+
+        .hamburger {
+          display: block;
+        }
+      }
+      /* FIX SELECT DROPDOWN VISIBILITY */
+      select {
+        color: #ffffff !important;
+        background-color: rgba(2, 6, 23, 0.9) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+      }
+
+      /* dropdown options (important for Chrome/Edge) */
+      select option {
+        background-color: #0b1220;
+        color: #ffffff;
+      }
+
+      /* fix autofill / weird browser overrides */
+      select:focus {
+        color: #ffffff;
+        background-color: rgba(2, 6, 23, 0.95);
+      }
+
+      /* fix placeholder-like first option */
+      select option[value=""] {
+        color: rgba(255, 255, 255, 0.5);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+
+    <!-- NAV -->
+    <header class="nav">
+      <div class="logo">INVIC</div>
+
+      <button class="hamburger" onclick="toggleMenu()">☰</button>
+
+      <nav id="menu" class="menu">
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'signup' %}">Signup</a>
+        <a href="{% url 'password_reset' %}">Reset</a>
+        <a href="{% url 'index' %}">Cancel</a>
+      </nav>
+    </header>
+
+    <div class="wrapper">
+      <!-- LEFT -->
+      <div class="hero">
+        <h1>
+          Secure <span>Login</span><br />
+          Access System
+        </h1>
+
+        <div class="desc">
+          Secure communication platform for enterprise teams.
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="form-container">
+        <div class="top-title">
+          <h2>Login</h2>
+          <p>Enter your credentials to continue</p>
+        </div>
+
+        {% if form.non_field_errors %}
+        <div class="alert">{{ form.non_field_errors }}</div>
+        {% endif %} {% if messages %}
+        <div class="messages">
+          {% for message in messages %}
+          <div class="alert {{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <form method="post">
+          {% csrf_token %}
+
+          {{ form.as_p }}
+
+          <button type="submit" class="btn login-btn">Login</button>
+        </form>
+
+        <form action="{% url 'signup' %}">
+          <button class="btn secondary">Create Account</button>
+        </form>
+
+        <form action="{% url 'password_reset' %}">
+          <button class="btn secondary">Forgot Password</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      function toggleMenu() {
+        document.getElementById("menu").classList.toggle("active");
+      }
+    </script>
+  </body>
+</html>

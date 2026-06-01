@@ -1,0 +1,907 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>About | Invic System</title>
+
+    <!-- Bootstrap -->
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <!-- Google Font -->
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #0a2647;
+        --secondary: #144272;
+        --accent: #2c74b3;
+        --light: #f5f7fa;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+
+        background:
+          linear-gradient(rgba(10, 38, 71, 0.88), rgba(10, 38, 71, 0.88)),
+          url("{% static 'images/q10.jpg' %}");
+
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+
+        color: white;
+
+        overflow-x: hidden;
+      }
+
+      /* NAVBAR */
+
+      .navbar {
+        background: rgba(10, 38, 71, 0.92);
+
+        backdrop-filter: blur(10px);
+
+        padding: 15px 0;
+      }
+
+      .navbar-brand {
+        font-size: 28px;
+
+        font-weight: 700;
+
+        color: white !important;
+      }
+
+      .nav-link {
+        color: white !important;
+
+        margin-left: 15px;
+
+        font-weight: 500;
+
+        transition: 0.3s;
+      }
+
+      .nav-link:hover {
+        color: #90caf9 !important;
+      }
+
+      /* HERO */
+
+      .hero {
+        min-height: 100vh;
+
+        display: flex;
+
+        align-items: center;
+
+        padding: 140px 0 80px;
+      }
+
+      .hero-title {
+        font-size: 58px;
+
+        font-weight: 700;
+
+        line-height: 1.2;
+      }
+
+      .hero-subtitle {
+        margin-top: 25px;
+
+        color: #d6d6d6;
+
+        line-height: 1.9;
+
+        font-size: 18px;
+      }
+
+      /* GLASS CARD */
+
+      .glass-card {
+        background: rgba(255, 255, 255, 0.08);
+
+        border: 1px solid rgba(255, 255, 255, 0.15);
+
+        backdrop-filter: blur(12px);
+
+        border-radius: 24px;
+
+        padding: 35px;
+
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      /* BUTTONS */
+
+      .btn-custom {
+        background: var(--accent);
+
+        color: white;
+
+        border: none;
+
+        padding: 14px 30px;
+
+        border-radius: 50px;
+
+        font-weight: 600;
+
+        transition: 0.3s;
+      }
+
+      .btn-custom:hover {
+        background: #1f5f99;
+
+        transform: translateY(-3px);
+      }
+
+      /* SECTION */
+
+      .section {
+        padding: 100px 0;
+      }
+
+      .section-title {
+        text-align: center;
+
+        margin-bottom: 60px;
+      }
+
+      .section-title h2 {
+        font-size: 42px;
+
+        font-weight: 700;
+      }
+
+      .section-title p {
+        color: #d6d6d6;
+
+        margin-top: 15px;
+      }
+
+      /* FEATURE CARDS */
+
+      .feature-card {
+        background: rgba(255, 255, 255, 0.08);
+
+        border-radius: 20px;
+
+        padding: 35px 25px;
+
+        height: 100%;
+
+        transition: 0.4s;
+
+        backdrop-filter: blur(10px);
+
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .feature-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .feature-card i {
+        font-size: 50px;
+
+        margin-bottom: 20px;
+
+        color: #90caf9;
+      }
+
+      .feature-card h4 {
+        margin-bottom: 15px;
+
+        font-weight: 600;
+      }
+
+      .feature-card p {
+        color: #d6d6d6;
+      }
+
+      /* TEAM */
+
+      .team-card {
+        background: rgba(255, 255, 255, 0.08);
+
+        border-radius: 22px;
+
+        padding: 30px;
+
+        text-align: center;
+
+        backdrop-filter: blur(10px);
+
+        transition: 0.4s;
+
+        height: 100%;
+      }
+
+      .team-card:hover {
+        transform: translateY(-8px);
+      }
+
+      .team-card img {
+        width: 120px;
+
+        height: 120px;
+
+        object-fit: cover;
+
+        border-radius: 50%;
+
+        border: 4px solid white;
+
+        margin-bottom: 20px;
+      }
+
+      .team-card h5 {
+        margin-bottom: 5px;
+
+        font-weight: 600;
+      }
+
+      .team-card p {
+        color: #d6d6d6;
+      }
+
+      /* STATS */
+
+      .stats {
+        background: rgba(255, 255, 255, 0.08);
+
+        border-radius: 25px;
+
+        padding: 50px 20px;
+      }
+
+      .stat-box h2 {
+        font-size: 48px;
+
+        font-weight: 700;
+      }
+
+      .stat-box p {
+        color: #d6d6d6;
+      }
+
+      /* RING */
+
+      .signature-ring {
+        position: fixed;
+
+        top: 95px;
+
+        left: 25px;
+
+        width: 90px;
+
+        height: 90px;
+
+        border-radius: 50%;
+
+        border: 8px solid transparent;
+
+        border-top: 8px solid #00c6ff;
+
+        border-right: 8px solid #2c74b3;
+
+        border-bottom: 8px solid #90caf9;
+
+        border-left: 8px solid #ffffff;
+
+        animation: spinRing 4s linear infinite;
+
+        z-index: 2000;
+
+        box-shadow:
+          0 0 20px rgba(255, 255, 255, 0.3),
+          0 0 40px rgba(44, 116, 179, 0.4);
+      }
+
+      .signature-ring::before {
+        content: "";
+
+        position: absolute;
+
+        top: 50%;
+
+        left: 50%;
+
+        width: 35px;
+
+        height: 35px;
+
+        transform: translate(-50%, -50%);
+
+        border-radius: 50%;
+
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      @keyframes spinRing {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* FOOTER */
+
+      footer {
+        background: #081b31;
+
+        padding: 40px 0;
+
+        text-align: center;
+      }
+
+      footer p {
+        margin: 0;
+
+        color: #d6d6d6;
+      }
+
+      /* RESPONSIVE */
+
+      @media (max-width: 991px) {
+        .hero {
+          text-align: center;
+        }
+
+        .hero-title {
+          font-size: 42px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .signature-ring {
+          width: 70px;
+          height: 70px;
+
+          border-width: 6px;
+
+          top: 85px;
+          left: 15px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .hero-title {
+          font-size: 34px;
+        }
+
+        .hero-subtitle {
+          font-size: 16px;
+        }
+
+        .section-title h2 {
+          font-size: 32px;
+        }
+
+        .signature-ring {
+          width: 55px;
+          height: 55px;
+
+          border-width: 5px;
+
+          top: 80px;
+          left: 10px;
+        }
+      }
+      /* =========================================
+   IMPROVED RESPONSIVENESS
+========================================= */
+
+      /* LARGE TABLETS */
+
+      @media (max-width: 991px) {
+        .hero {
+          padding-top: 130px;
+          padding-bottom: 60px;
+          text-align: center;
+        }
+
+        .hero-title {
+          font-size: 44px;
+          line-height: 1.3;
+        }
+
+        .hero-subtitle {
+          font-size: 16px;
+          line-height: 1.8;
+          max-width: 100%;
+        }
+
+        .glass-card {
+          margin-top: 20px;
+        }
+
+        .section {
+          padding: 80px 0;
+        }
+
+        .section-title h2 {
+          font-size: 36px;
+        }
+
+        .nav-link {
+          margin-left: 0;
+          margin-top: 10px;
+        }
+
+        .navbar-collapse {
+          background: rgba(10, 38, 71, 0.97);
+          padding: 20px;
+          border-radius: 16px;
+          margin-top: 15px;
+        }
+      }
+
+      /* TABLETS */
+
+      @media (max-width: 768px) {
+        .container {
+          padding-left: 18px;
+          padding-right: 18px;
+        }
+
+        .hero {
+          padding-top: 120px;
+          padding-bottom: 50px;
+        }
+
+        .hero-title {
+          font-size: 36px;
+        }
+
+        .hero-subtitle {
+          font-size: 15px;
+        }
+
+        .glass-card {
+          padding: 28px 22px;
+          border-radius: 20px;
+        }
+
+        .feature-card {
+          padding: 28px 22px;
+        }
+
+        .feature-card i {
+          font-size: 42px;
+        }
+
+        .team-card {
+          padding: 24px 18px;
+        }
+
+        .team-card img {
+          width: 100px;
+          height: 100px;
+        }
+
+        .stats {
+          padding: 40px 15px;
+        }
+
+        .stat-box {
+          margin-bottom: 25px;
+        }
+
+        .stat-box h2 {
+          font-size: 38px;
+        }
+
+        .signature-ring {
+          width: 65px;
+          height: 65px;
+          border-width: 5px;
+          top: 85px;
+          left: 12px;
+        }
+
+        .signature-ring::before {
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      /* MOBILE */
+
+      @media (max-width: 576px) {
+        .hero {
+          padding-top: 110px;
+          padding-bottom: 40px;
+        }
+
+        .hero-title {
+          font-size: 29px;
+          line-height: 1.4;
+        }
+
+        .hero-subtitle {
+          font-size: 14px;
+          line-height: 1.8;
+        }
+
+        .btn-custom {
+          width: 100%;
+          padding: 13px;
+          font-size: 14px;
+        }
+
+        .glass-card {
+          padding: 22px 18px;
+        }
+
+        .glass-card h3 {
+          font-size: 22px;
+        }
+
+        .section {
+          padding: 60px 0;
+        }
+
+        .section-title {
+          margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+          font-size: 28px;
+        }
+
+        .section-title p {
+          font-size: 14px;
+        }
+
+        .feature-card {
+          padding: 24px 18px;
+        }
+
+        .feature-card h4 {
+          font-size: 20px;
+        }
+
+        .feature-card p {
+          font-size: 14px;
+        }
+
+        .team-card {
+          padding: 20px 16px;
+        }
+
+        .team-card h5 {
+          font-size: 18px;
+        }
+
+        .team-card p {
+          font-size: 13px;
+        }
+
+        .team-card img {
+          width: 90px;
+          height: 90px;
+        }
+
+        .stats {
+          padding: 30px 10px;
+        }
+
+        .stat-box h2 {
+          font-size: 30px;
+        }
+
+        .stat-box p {
+          font-size: 13px;
+        }
+
+        footer {
+          padding: 25px 0;
+        }
+
+        footer p {
+          font-size: 13px;
+          line-height: 1.7;
+        }
+
+        .signature-ring {
+          width: 55px;
+          height: 55px;
+          border-width: 4px;
+          top: 80px;
+          left: 10px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <i class="fa-solid fa-video"></i>
+          Invic System
+        </a>
+
+        <button
+          class="navbar-toggler bg-light"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}"> Home </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'lobby' %}"> Meetings </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'chatindex' %}"> Chat </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'email_form' %}"> Conference </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'aboutus' %}"> About </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}"> Logout </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- SIGNATURE RING -->
+
+    <div class="signature-ring"></div>
+
+    <!-- HERO -->
+
+    <section class="hero">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-7">
+            <h1 class="hero-title">
+              Institutional Collaboration & Communication Platform
+            </h1>
+
+            <p class="hero-subtitle">
+              Invic System is a secure enterprise-grade communication platform
+              designed to facilitate real-time collaboration, video
+              conferencing, institutional engagement, and digital communication
+              management across modern organizations and government
+              environments.
+            </p>
+
+            <a href="{% url 'lobby' %}" class="btn btn-custom mt-4">
+              <i class="fa-solid fa-video"></i>
+              Launch Meeting
+            </a>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="glass-card">
+              <h3 class="mb-4">
+                <i class="fa-solid fa-shield-halved"></i>
+                Platform Objectives
+              </h3>
+
+              <ul class="list-unstyled">
+                <li class="mb-3">
+                  ✔ Enhance secure institutional communication
+                </li>
+
+                <li class="mb-3">✔ Support real-time collaboration</li>
+
+                <li class="mb-3">✔ Enable encrypted conferencing systems</li>
+
+                <li class="mb-3">✔ Improve administrative coordination</li>
+
+                <li class="mb-3">
+                  ✔ Provide scalable communication infrastructure
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Core Platform Features</h2>
+
+          <p>
+            Enterprise communication capabilities designed for institutional
+            use.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4">
+            <div class="feature-card text-center">
+              <i class="fa-solid fa-video"></i>
+
+              <h4>Video Conferencing</h4>
+
+              <p>
+                Secure high-quality virtual meetings with participant
+                management.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="feature-card text-center">
+              <i class="fa-solid fa-comments"></i>
+
+              <h4>Real-Time Chat</h4>
+
+              <p>
+                Instant institutional messaging and collaborative communication.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="feature-card text-center">
+              <i class="fa-solid fa-user-shield"></i>
+
+              <h4>Secure Access</h4>
+
+              <p>
+                Role-based authentication and secure communication
+                infrastructure.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAM -->
+
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Development Team</h2>
+
+          <p>The individuals behind the Invic collaboration platform.</p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-3">
+            <div class="team-card">
+              <img src="{% static 'images/q3.jpg' %}" alt="Frank" />
+
+              <h5>Frank Ssekanjako</h5>
+
+              <p>Lead Developer & Designer</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3">
+            <div class="team-card">
+              <img src="{% static 'images/q9.jpg' %}" alt="Margaret" />
+
+              <h5>Margaret Nampewo</h5>
+
+              <p>Lead Researcher and Team leader</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3">
+            <div class="team-card">
+              <img src="{% static 'images/q4.jpg' %}" alt="Edward" />
+
+              <h5>Edward Kezaala</h5>
+
+              <p>IDEOLOGIST, PLANNING & FINANCE</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3">
+            <div class="team-card">
+              <img src="{% static 'images/q2.jpg' %}" alt="Sarah" />
+
+              <h5>Sarah Natifu</h5>
+
+              <p>LEAD FINACER, & TEAM COOPERATIVE MEMBER</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+
+    <section class="section">
+      <div class="container">
+        <div class="stats">
+          <div class="row text-center">
+            <div class="col-md-3 stat-box">
+              <h2>24/7</h2>
+
+              <p>Platform Availability</p>
+            </div>
+
+            <div class="col-md-3 stat-box">
+              <h2>100%</h2>
+
+              <p>Secure Access</p>
+            </div>
+
+            <div class="col-md-3 stat-box">
+              <h2>Cloud</h2>
+
+              <p>Infrastructure</p>
+            </div>
+
+            <div class="col-md-3 stat-box">
+              <h2>Real-Time</h2>
+
+              <p>Communication</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer>
+      <div class="container">
+        <p>
+          © 2026 Invic System — Institutional Collaboration Platform | Ministry
+          ICT Project Submission
+        </p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

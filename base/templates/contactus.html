@@ -1,0 +1,652 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Support Center | Invic System</title>
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background:
+          linear-gradient(rgba(6, 14, 28, 0.9), rgba(6, 14, 28, 0.92)),
+          url("{% static 'images/q1.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: white;
+        overflow-x: hidden;
+      }
+
+      /* NAVBAR */
+      .navbar {
+        background: rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(12px);
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+      }
+
+      .nav-link {
+        color: white !important;
+        margin-left: 10px;
+        transition: 0.3s;
+      }
+
+      .nav-link:hover {
+        color: #0d6efd !important;
+      }
+
+      /* MAIN SECTION */
+      .support-wrapper {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 120px 20px 60px;
+      }
+
+      .title {
+        font-size: 2.8rem;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      .subtitle {
+        margin-top: 18px;
+        color: #d7dce2;
+        line-height: 1.8;
+        max-width: 550px;
+      }
+
+      /* RING */
+      .ring {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 5px solid transparent;
+        border-top: 5px solid #0d6efd;
+        border-bottom: 5px solid #00c6ff;
+        animation: spin 3s linear infinite;
+        margin-bottom: 25px;
+      }
+
+      @keyframes spin {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* FEATURES */
+      .social-card {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 18px;
+        text-align: center;
+        transition: 0.3s;
+        height: 100%;
+      }
+
+      .social-card:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .social-card i {
+        font-size: 24px;
+        margin-bottom: 10px;
+        display: block;
+      }
+
+      /* FORM AREA */
+      .form-wrapper {
+        width: 100%;
+      }
+
+      .form-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+
+      form {
+        width: 100%;
+      }
+
+      .form-control {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: white;
+        border-radius: 14px;
+        padding: 14px;
+        font-size: 15px;
+      }
+
+      .form-control:focus {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: #0d6efd;
+        box-shadow: none;
+        color: white;
+      }
+
+      textarea.form-control {
+        min-height: 180px;
+        resize: vertical;
+      }
+
+      .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.65);
+      }
+      /* FORM RESPONSIVENESS */
+
+      .form-wrapper {
+        width: 100%;
+      }
+
+      form {
+        width: 100%;
+      }
+
+      .form-control {
+        width: 100%;
+        max-width: 100%;
+
+        background: rgba(255, 255, 255, 0.06) !important;
+
+        border: 1px solid rgba(255, 255, 255, 0.12);
+
+        color: #ffffff !important;
+
+        border-radius: 16px;
+
+        padding: 16px 18px;
+
+        font-size: 15px;
+
+        backdrop-filter: blur(4px);
+
+        transition: 0.3s ease;
+      }
+
+      /* TEXTAREA */
+
+      textarea.form-control {
+        width: 100% !important;
+
+        min-height: 180px;
+
+        resize: vertical;
+
+        overflow-x: hidden;
+      }
+
+      /* TYPING COLOR */
+
+      .form-control,
+      textarea,
+      input {
+        color: #ffffff !important;
+
+        caret-color: #ffffff !important;
+      }
+
+      /* PLACEHOLDER */
+
+      .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.65);
+      }
+
+      /* FOCUS */
+
+      .form-control:focus {
+        background: rgba(255, 255, 255, 0.1) !important;
+
+        border-color: #0d6efd;
+
+        box-shadow:
+          0 0 0 0.2rem rgba(13, 110, 253, 0.15),
+          0 0 18px rgba(13, 110, 253, 0.15);
+
+        color: white !important;
+      }
+
+      /* AUTOFILL FIX */
+
+      input:-webkit-autofill,
+      textarea:-webkit-autofill {
+        -webkit-text-fill-color: white !important;
+
+        transition: background-color 5000s ease-in-out 0s;
+      }
+
+      /* TABLET */
+
+      @media (max-width: 768px) {
+        .form-control {
+          padding: 14px 15px;
+
+          font-size: 14px;
+        }
+
+        textarea.form-control {
+          min-height: 150px;
+        }
+
+        .form-title {
+          text-align: center;
+        }
+      }
+
+      /* MOBILE */
+
+      @media (max-width: 576px) {
+        .support-wrapper {
+          padding: 100px 15px 50px;
+        }
+
+        .title {
+          font-size: 1.8rem;
+          text-align: center;
+        }
+
+        .subtitle {
+          font-size: 14px;
+          text-align: center;
+        }
+
+        .form-wrapper {
+          width: 100%;
+        }
+
+        .btn-send {
+          width: 100%;
+
+          padding: 13px;
+
+          font-size: 14px;
+        }
+
+        textarea.form-control {
+          min-height: 130px;
+        }
+
+        .contact-card {
+          padding: 14px;
+        }
+      }
+      /* BUTTON */
+      .btn-send {
+        width: 100%;
+        border: none;
+        padding: 14px;
+        border-radius: 14px;
+        font-weight: 600;
+        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        color: white;
+        transition: 0.3s;
+      }
+
+      .btn-send:hover {
+        transform: translateY(-2px);
+      }
+
+      /* CONTACTS */
+      .contact-section {
+        margin-top: 40px;
+      }
+
+      .contact-title {
+        margin-bottom: 18px;
+        font-weight: 600;
+      }
+
+      .contact-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 18px 12px;
+        text-align: center;
+        transition: 0.3s;
+        height: 100%;
+      }
+
+      .contact-card:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.09);
+      }
+
+      .contact-card img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-bottom: 10px;
+        border: 2px solid white;
+      }
+
+      .contact-card b {
+        font-size: 15px;
+      }
+
+      .contact-card small {
+        font-size: 12px;
+        color: #d5dce3;
+      }
+
+      /* ANIMATION */
+      .fade-up {
+        animation: fadeUp 0.8s ease forwards;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 991px) {
+        .support-wrapper {
+          padding-top: 110px;
+        }
+
+        .title,
+        .subtitle {
+          text-align: center;
+        }
+
+        .subtitle {
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .ring {
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .left-content {
+          margin-bottom: 40px;
+        }
+
+        .form-wrapper {
+          margin-top: 10px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .title {
+          font-size: 2rem;
+        }
+
+        .subtitle {
+          font-size: 14px;
+        }
+
+        textarea.form-control {
+          min-height: 150px;
+        }
+
+        .social-card,
+        .contact-card {
+          padding: 14px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .support-wrapper {
+          padding: 100px 15px 40px;
+        }
+
+        .title {
+          font-size: 1.7rem;
+        }
+
+        .form-title {
+          font-size: 1.2rem;
+          text-align: center;
+        }
+
+        .btn-send {
+          padding: 13px;
+          font-size: 14px;
+        }
+
+        .contact-card img {
+          width: 55px;
+          height: 55px;
+        }
+      }
+      form {
+        width: 100%;
+      }
+
+      textarea.form-control {
+        width: 100% !important;
+        max-width: 100%;
+        min-height: 160px;
+        resize: vertical;
+        overflow-x: hidden;
+      }
+
+      @media (max-width: 768px) {
+        textarea.form-control {
+          min-height: 140px;
+          font-size: 14px;
+          padding: 12px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        textarea.form-control {
+          min-height: 130px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Invic Support Center</a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}">Home</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'lobby' %}">VIDEO ROOM</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'chatindex' %}">Chat</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'aboutus' %}">About</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link text-warning" href="{% url 'logout' %}">
+                Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- MAIN -->
+    <section class="support-wrapper">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <!-- LEFT -->
+          <div class="col-lg-6 fade-up left-content">
+            <div class="ring"></div>
+
+            <h1 class="title">Institutional Support & Communication Center</h1>
+
+            <p class="subtitle">
+              Secure communication channel for technical support, institutional
+              collaboration, and system inquiries within Invic System.
+            </p>
+
+            <div class="row g-3 mt-4">
+              <div class="col-6">
+                <div class="social-card">
+                  <i class="bi bi-shield-lock"></i>
+                  <p class="mb-0">Secure</p>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="social-card">
+                  <i class="bi bi-lightning-charge"></i>
+                  <p class="mb-0">Fast</p>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="social-card">
+                  <i class="bi bi-globe"></i>
+                  <p class="mb-0">24/7 Support</p>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="social-card">
+                  <i class="bi bi-people"></i>
+                  <p class="mb-0">Admin Team</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT -->
+          <div class="col-lg-6 fade-up">
+            <!-- FORM -->
+            <div class="form-wrapper">
+              <h3 class="form-title">Send Support Request</h3>
+
+              <form method="POST">
+                {% csrf_token %}
+
+                <div class="mb-3">{{ form.question_text }}</div>
+
+                <button class="btn-send">
+                  <i class="bi bi-send"></i>
+                  Submit Request
+                </button>
+              </form>
+            </div>
+
+            <!-- CONTACTS -->
+            <div class="contact-section">
+              <div class="text-center contact-title">
+                Official Support Contacts
+              </div>
+
+              <div class="row g-3">
+                <div class="col-6 col-md-3">
+                  <div class="contact-card">
+                    <img src="{% static 'images/q3.jpg' %}" alt="" />
+
+                    <b>Frank</b><br />
+
+                    <small>Design Lead</small><br />
+
+                    <small>📞 0700 953178</small>
+                  </div>
+                </div>
+
+                <div class="col-6 col-md-3">
+                  <div class="contact-card">
+                    <img src="{% static 'images/q9.jpg' %}" alt="" />
+
+                    <b>Maggie</b><br />
+
+                    <small>Dev Lead</small><br />
+
+                    <small>📞 0757 109861</small>
+                  </div>
+                </div>
+
+                <div class="col-6 col-md-3">
+                  <div class="contact-card">
+                    <img src="{% static 'images/q2.jpg' %}" alt="" />
+
+                    <b>Sarah</b><br />
+
+                    <small>Support</small><br />
+
+                    <small>📞 0779 830890</small>
+                  </div>
+                </div>
+
+                <div class="col-6 col-md-3">
+                  <div class="contact-card">
+                    <img src="{% static 'images/q4.jpg' %}" alt="" />
+
+                    <b>Edward</b><br />
+
+                    <small>CEO</small><br />
+
+                    <small>📞 0759 112185</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
