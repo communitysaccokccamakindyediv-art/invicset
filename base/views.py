@@ -526,8 +526,4 @@ def download_room_file(request, file_id):
         f'attachment; filename="{room_file.original_name}"'
     )
 
-    return responseent-Disposition'] = (
-        f'attachment; filename="{room_file.original_name}"'
-    )
-
     return response
