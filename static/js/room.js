@@ -8,31 +8,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const sendBtn = document.getElementById("send");
     const typingIndicator = document.getElementById("typing-indicator");
 
-    const resizeHandle = document.getElementById("chat-resize-handle");
-
-    let isResizing = false;
     let typingTimeout;
     const typingUsers = new Set();
 
-    /* ================= UTILS ================= */
-
     function scrollBottom() {
-        const nearBottom =
-            chatLog.scrollHeight - chatLog.scrollTop - chatLog.clientHeight < 100;
-
-        if (nearBottom) {
-            chatLog.scrollTop = chatLog.scrollHeight;
-        }
+        chatLog.scrollTop = chatLog.scrollHeight;
     }
 
     function sendSocket(data) {
-        if (chatSocket && chatSocket.readyState === WebSocket.OPEN) {
+        if (chatSocket.readyState === WebSocket.OPEN) {
             chatSocket.send(JSON.stringify(data));
         }
     }
 
-    /* ================= CHAT PANEL ================= */
-
+    /* PANEL */
     chatBtn?.addEventListener("click", () => {
         chatPanel.classList.toggle("open");
     });
@@ -41,35 +30,33 @@ document.addEventListener("DOMContentLoaded", () => {
         chatPanel.classList.remove("open");
     });
 
-    /* ================= WEBSOCKET ================= */
-
+    /* SOCKET FIX */
     const protocol = window.location.protocol === "https:" ? "wss://" : "ws://";
 
     const chatSocket = new WebSocket(
-        protocol + window.location.host + "/ws/room/chat/" + roomName + "/"
+        protocol + window.location.host + "/ws/chat/" + roomName + "/"
     );
 
-    chatSocket.onmessage = function (e) {
+    chatSocket.onmessage = (e) => {
         const data = JSON.parse(e.data);
 
-        /* ===== CHAT MESSAGE ===== */
         if (data.type === "chat") {
             const cls = data.username === currentUser ? "me" : "other";
 
-            const msgDiv = document.createElement("div");
-            msgDiv.className = `msg ${cls}`;
+            chatLog.insertAdjacentHTML(
+                "beforeend",
+                `
+                <div class="msg ${cls}">
+                    <div class="sender">${data.username}</div>
+                    <div class="message-text">${data.message}</div>
+                    <div class="time">now</div>
+                </div>
+                `
+            );
 
-            msgDiv.innerHTML = `
-                <div class="sender">${data.username}</div>
-                <div class="message-text">${data.message}</div>
-                <div class="time">now</div>
-            `;
-
-            chatLog.appendChild(msgDiv);
             scrollBottom();
         }
 
-        /* ===== TYPING ===== */
         if (data.type === "typing" && data.username !== currentUser) {
             if (data.is_typing) {
                 typingUsers.add(data.username);
@@ -86,8 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     chatSocket.onerror = (e) => console.error("WebSocket error:", e);
     chatSocket.onclose = (e) => console.error("WebSocket closed:", e);
-
-    /* ================= SEND MESSAGE ================= */
 
     function sendMessage() {
         const msg = messageInput.value.trim();
@@ -107,8 +92,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.key === "Enter") sendMessage();
     });
 
-    /* ================= TYPING ================= */
-
     messageInput?.addEventListener("input", () => {
         sendSocket({
             type: "typing",
@@ -124,28 +107,4 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }, 800);
     });
-
-    /* ================= RESIZE CHAT PANEL ================= */
-
-    if (resizeHandle) {
-        resizeHandle.addEventListener("mousedown", () => {
-            isResizing = true;
-            document.body.style.cursor = "ew-resize";
-        });
-
-        document.addEventListener("mousemove", (e) => {
-            if (!isResizing) return;
-
-            const newWidth = window.innerWidth - e.clientX;
-
-            if (newWidth >= 260 && newWidth <= 800) {
-                chatPanel.style.width = newWidth + "px";
-            }
-        });
-
-        document.addEventListener("mouseup", () => {
-            isResizing = false;
-            document.body.style.cursor = "default";
-        });
-    }
 });
