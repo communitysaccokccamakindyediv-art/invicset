@@ -1,8 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views  
 from .views import (
-    download_room_file, index, signup, confirm_email,
-    email_confirmation, email_confirmed, email_confirmation_invalid,
+    download_room_file, index, signup,
     login_view, logout_view,
     home, lobby, room,
     getToken, createMember, getMember, deleteMember,
@@ -18,10 +17,6 @@ from .views import (
 urlpatterns = [
     path('', index, name='index'),
     path('signup/', signup, name='signup'),
-    path('confirm_email/<str:uidb64>/<str:token>/', confirm_email, name='confirm_email'),
-    path('email_confirmation/', email_confirmation, name='email_confirmation'),
-    path('email_confirmed/', email_confirmed, name='email_confirmed'),
-    path('email_confirmation_invalid/', email_confirmation_invalid, name='email_confirmation_invalid'),
     path('login/', login_view, name='login'),
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name="password_reset.html"), name='password_reset'),
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name="password_reset_done.html"), name='password_reset_done'),
@@ -55,5 +50,5 @@ urlpatterns = [
         name="download_room_file"
     ),
 
-    path('room/<str:room_name>/upload-file/', upload_room_file, name='upload_room_file')
+    path('room/<str:room_name>/upload-file/', upload_room_file, name='upload_room_file'),
 ]
