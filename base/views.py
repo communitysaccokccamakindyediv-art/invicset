@@ -81,33 +81,80 @@ def home(request):
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST, request.FILES)
+
         if form.is_valid():
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password1'])
+
             user_type = form.cleaned_data['user_type']
+
             if user_type == 'otheruser':
                 user.is_other_user = True
+
             elif user_type == 'adminstaff':
                 admin_staff_number = form.cleaned_data['admin_staff_number']
+
                 if not AdminStaffNumber.objects.filter(number=admin_staff_number).exists():
                     messages.error(request, 'Invalid Admin Staff Number.')
                     return render(request, 'signup.html', {'form': form})
+
                 user.is_admin_staff = True
+
             user.save()
-            send_confirmation_email(request, user)  # Send confirmation email
-            messages.success(request, 'Please check your email to confirm your account.')
+
+            # 🔥 NON-BLOCKING EMAIL
+            send_confirmation_email(request, user)
+
+            messages.success(
+                request,
+                'Please check your email to confirm your account.'
+            )
+
             return redirect('login')
+
     else:
         form = SignupForm()
+
     return render(request, 'signup.html', {'form': form})
 
 def send_confirmation_email(request, user):
-    token = default_token_generator.make_token(user)
-    uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
-    confirmation_link = request.build_absolute_uri(reverse('confirm_email', kwargs={'uidb64': uidb64, 'token': token}))
-    subject = 'Confirm your email address'
-    message = f"Please click the following link to confirm your email address: {confirmation_link}"
-    send_mail(subject, message, 'enote7y@gmail.com', [user.email])
+    import threading
+
+    def task():
+        try:
+            token = default_token_generator.make_token(user)
+            uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
+
+            confirmation_link = request.build_absolute_uri(
+                reverse('confirm_email', kwargs={
+                    'uidb64': uidb64,
+                    'token': token
+                })
+            )
+
+            subject = "Confirm your email address"
+            message = f"""
+Hello {user.username},
+
+Please confirm your account by clicking the link below:
+
+{confirmation_link}
+
+If you did not request this, ignore this email.
+"""
+
+            send_mail(
+                subject,
+                message,
+                'enote7y@gmail.com',
+                [user.email],
+                fail_silently=True
+            )
+
+        except Exception as e:
+            print("Email error:", e)
+
+    threading.Thread(target=task, daemon=True).start()
 
 def login_view(request):
     if request.method == 'POST':
