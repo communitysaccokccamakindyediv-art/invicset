@@ -610,8 +610,43 @@
           return;
         }
 
+        // At least 4 characters
+        if (room.length < 4) {
+          alert("Meeting ID must be at least 4 characters long");
+          return;
+        }
+
+        // No spaces allowed
+        if (/\s/.test(room)) {
+          alert("Meeting ID cannot contain spaces");
+          return;
+        }
+
+        // Only letters, numbers, underscore and hyphen allowed
+        if (!/^[A-Za-z0-9_-]+$/.test(room)) {
+          alert(
+            "Meeting ID can only contain letters, numbers, underscores (_) and hyphens (-)"
+          );
+          return;
+        }
+
         if (!name) {
           alert("Please enter a Participant Name");
+          return;
+        }
+
+        if (!name) {
+          alert("Please enter a Participant Name");
+          return;
+        }
+
+        if (name.length < 4) {
+          alert("Participant Name must be at least 4 characters long");
+          return;
+        }
+
+        if (!/^[A-Za-z\s]+$/.test(name)) {
+          alert("Participant Name can only contain letters and spaces");
           return;
         }
 
