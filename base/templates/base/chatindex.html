@@ -607,39 +607,37 @@
     <!-- SCRIPT -->
 
     <script>
-      const roomInput = document.querySelector("#room-name-input");
-      const submitBtn = document.querySelector("#room-name-submit");
-      const errorBox = document.querySelector("#room-error");
-
-      roomInput.focus();
-
-      roomInput.addEventListener("keyup", function (e) {
-        if (e.key === "Enter") {
-          submitBtn.click();
-        }
-      });
-      
+        const roomInput = document.querySelector("#room-name-input");
+        const submitBtn = document.querySelector("#room-name-submit");
+        const errorBox = document.querySelector("#room-error");
+        
+        // Allow only letters, numbers, underscores and hyphens
+        roomInput.addEventListener("input", function () {
+          this.value = this.value.replace(/[^a-zA-Z0-9_-]/g, "");
+        });
+        
+        // Submit handler
         submitBtn.addEventListener("click", function () {
           const roomName = roomInput.value.trim().toUpperCase();
         
-          // Minimum length validation
           if (roomName.length < 4) {
-            errorBox.textContent = "Room name must contain at least 4 characters.";
-            errorBox.style.display = "block";
-            return;
-          }
-        
-          // No spaces validation
-          if (/\s/.test(roomName)) {
-            errorBox.textContent = "Room name cannot contain spaces. Use ROOM-NAME or ROOM_NAME.";
+            errorBox.textContent =
+              "Room name must contain at least 4 characters.";
             errorBox.style.display = "block";
             return;
           }
         
           errorBox.style.display = "none";
         
-          // Redirect to room
-          window.location.href = `/chat/${roomName}/`;
+          // Redirect to chat room
+          window.location.href = `/chat/${encodeURIComponent(roomName)}/`;
+        });
+        
+        // Allow Enter key submission
+        roomInput.addEventListener("keyup", function (e) {
+          if (e.key === "Enter") {
+            submitBtn.click();
+          }
         });
         errorBox.style.display = "none";
     </script>
