@@ -619,19 +619,28 @@
         }
       });
       
-      submitBtn.addEventListener("click", function () {
-        const roomName = roomInput.value.trim().toUpperCase();
-      
-        if (roomName.length < 4) {
-          errorBox.style.display = "block";
-          return;
-        }
-      
-        errorBox.style.display = "none";
-      
-        // redirect directly to room
-        window.location.href = `/chat/${roomName}/`;
-      });
+        submitBtn.addEventListener("click", function () {
+          const roomName = roomInput.value.trim().toUpperCase();
+        
+          // Minimum length validation
+          if (roomName.length < 4) {
+            errorBox.textContent = "Room name must contain at least 4 characters.";
+            errorBox.style.display = "block";
+            return;
+          }
+        
+          // No spaces validation
+          if (/\s/.test(roomName)) {
+            errorBox.textContent = "Room name cannot contain spaces. Use ROOM-NAME or ROOM_NAME.";
+            errorBox.style.display = "block";
+            return;
+          }
+        
+          errorBox.style.display = "none";
+        
+          // Redirect to room
+          window.location.href = `/chat/${roomName}/`;
+        });
         errorBox.style.display = "none";
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
