@@ -173,7 +173,11 @@ client.on("volume-indicator", (volumes) => {
     // ALWAYS reset first
     document.querySelectorAll(".video-container")
         .forEach(card => {
-            card.classList.remove("active-speaker", "shrink-speaker")
+            card.classList.remove("active-speaker")
+    
+            if (window.innerWidth > 768) {
+                card.classList.remove("shrink-speaker")
+            }
         })
 
     // IMPORTANT: if no one is speaking → STOP HERE
@@ -184,17 +188,19 @@ client.on("volume-indicator", (volumes) => {
 
     // 🔒 SAFETY CHECK (PUT IT HERE)
     if (!activeCard || !activeCard.querySelector(".video-player")) return
-
     if (activeCard) {
-
+    
         activeCard.classList.add("active-speaker")
-
-        document.querySelectorAll(".video-container")
-            .forEach(card => {
-                if (card !== activeCard) {
-                    card.classList.add("shrink-speaker")
-                }
-            })
+    
+        // Only shrink others on desktop
+        if (window.innerWidth > 768) {
+            document.querySelectorAll(".video-container")
+                .forEach(card => {
+                    if (card !== activeCard) {
+                        card.classList.add("shrink-speaker")
+                    }
+                })
+        }
     }
 
     speakerTimeout = setTimeout(() => {
