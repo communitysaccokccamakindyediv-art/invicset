@@ -58,6 +58,9 @@
         display: flex;
         flex-direction: column;
         min-height: 100dvh;
+          height: 100%;
+          height: 100dvh;
+          overflow: hidden;
       }
 
       #room-name-wrapper {
@@ -152,6 +155,10 @@
         padding: 30px;
         overflow-y: auto;
         padding-bottom: 150px;
+        height: calc(100dvh - 120px);
+      }
+      body.keyboard-open #video-streams {
+        padding-bottom: 180px;
       }
       @media (max-width: 768px) {
         #video-streams {
@@ -240,7 +247,7 @@
 
       #controls-wrapper {
         position: fixed;
-        bottom: 28px;
+        bottom: calc(28px + var(--keyboard-height, 0px));
         left: 50%;
         transform: translateX(-50%);
         display: flex;
@@ -401,7 +408,7 @@
         right: 0;
         top: 0;
         width: 350px;
-        height: 100vh;
+        height: 100dvh;
         background: #0f172a;
         display: flex;
         flex-direction: column;
@@ -824,6 +831,29 @@
 
       closeChatBtn.addEventListener("click", () => {
         chatPanel.classList.remove("open");
+      });
+
+      function updateKeyboardOffset() {
+        if (!window.visualViewport) return;
+      
+        const keyboardHeight =
+          window.innerHeight - window.visualViewport.height;
+      
+        document.documentElement.style.setProperty(
+          "--keyboard-height",
+          `${keyboardHeight}px`
+        );
+      }
+      
+      window.visualViewport?.addEventListener("resize", updateKeyboardOffset);
+      window.addEventListener("resize", updateKeyboardOffset);
+      updateKeyboardOffset();
+
+      window.visualViewport?.addEventListener("resize", () => {
+        const keyboardOpen =
+          window.innerHeight > window.visualViewport.height + 100;
+      
+        document.body.classList.toggle("keyboard-open", keyboardOpen);
       });
     </script>
   </body>
